@@ -14,11 +14,11 @@
       <a class="brand" href="/">TOT2</a>
 
       <ul class="nav">
-        <li class="active"><a href="/">Apps</a></li>
+        <li <%= "class=active" if action_name == 'index' %>><a href="/">Apps</a></li>
       </ul>
 
       <ul class="nav">
-        <li class="active"><a href="/">Users</a></li>
+        <li <%= "class=active" if action_name != 'index' %>><a href="/">Users</a></li>
       </ul>
 
       <p class="navbar-text pull-right">
@@ -34,14 +34,17 @@
   </div>
 </div>
 
-<% if notice %>
-  <p class="alert alert-notice"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-error"><%= alert %></p>
-<% end %>
+<div class="container">
 
-<%= yield %>
+  <% if notice %>
+    <p class="alert alert-notice"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-error"><%= alert %></p>
+  <% end %>
+
+  <%= yield %>
+</div>
 
 </body>
 </html>
