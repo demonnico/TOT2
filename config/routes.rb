@@ -1,8 +1,13 @@
 TOT2::Application.routes.draw do
   devise_for :users
 
-  get "download/index"
   root :to => 'download#index'
+
+  get "download/index"
+
+  match 'admin', :to => 'admin#index'
+  match 'admin/index', :to => 'admin#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
