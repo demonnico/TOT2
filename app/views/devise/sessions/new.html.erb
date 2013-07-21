@@ -1,3 +1,12 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/">TOT2 admin</a>
+	  </div>
+  </div>
+</div>
+
+<div class="container">
 <h2>Sign in</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -15,3 +24,4 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+</div>
