@@ -11,14 +11,23 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="/">TOT2 admin</a>
+      <a class="brand" href="/">TOT2</a>
+      <a class="brand" href="/admin">admin</a>
+
+      <ul class="nav">
+        <li><p>&nbsp;&nbsp;&nbsp;&nbsp;</p></li>
+      </ul>
 
       <ul class="nav">
         <li <%= "class=active" if action_name == 'index' %>><a href="/">Apps</a></li>
       </ul>
 
       <ul class="nav">
-        <li <%= "class=active" if action_name != 'index' %>><a href="/">Users</a></li>
+        <li <%= "class=active" if action_name == 'users' %>><a href="/">Users</a></li>
+      </ul>
+
+      <ul class="nav">
+        <li <%= "class=active" if action_name == 'upload' %>><a href="/">Upload</a></li>
       </ul>
 
       <p class="navbar-text pull-right">
