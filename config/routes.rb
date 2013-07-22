@@ -5,8 +5,12 @@ TOT2::Application.routes.draw do
 
   get "download/index"
 
-  match 'admin', :to => 'admin#index'
-  match 'admin/index', :to => 'admin#index'
+  match 'admin', :to => 'admin#apps'
+  match 'admin/index', :to => 'admin#apps'
+
+  match 'admin/apps', :to => 'admin#apps'
+  match 'admin/users', :to => 'admin#users'
+  match 'admin/upload', :to => 'admin#upload'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
