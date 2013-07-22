@@ -14,21 +14,23 @@
       <a class="brand" href="/">TOT2</a>
       <a class="brand" href="/admin">admin</a>
 
-      <ul class="nav">
-        <li><p>&nbsp;&nbsp;&nbsp;&nbsp;</p></li>
-      </ul>
+      <% if can? :manage, @user %>
+        <ul class="nav">
+          <li><p>&nbsp;&nbsp;&nbsp;&nbsp;</p></li>
+        </ul>
 
-      <ul class="nav">
-        <li <%= "class=active" if action_name == 'apps' %>><a href="/admin/apps">Apps</a></li>
-      </ul>
+        <ul class="nav">
+          <li <%= "class=active" if action_name == 'apps' %>><a href="/admin/apps">Apps</a></li>
+        </ul>
 
-      <ul class="nav">
-        <li <%= "class=active" if action_name == 'users' %>><a href="/admin/users">Users</a></li>
-      </ul>
+        <ul class="nav">
+          <li <%= "class=active" if action_name == 'users' %>><a href="/admin/users">Users</a></li>
+        </ul>
 
-      <ul class="nav">
-        <li <%= "class=active" if action_name == 'upload' %>><a href="/admin/upload">Upload</a></li>
-      </ul>
+        <ul class="nav">
+          <li <%= "class=active" if action_name == 'upload' %>><a href="/admin/upload">Upload</a></li>
+        </ul>
+      <% end %>
 
       <p class="navbar-text pull-right">
       <% if user_signed_in? %>
