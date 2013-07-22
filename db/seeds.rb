@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+oldRootUser = User.find(:email => "tot@tot.com")
+oldRootUser.destory
+
+newRootUser = User.new(
+  :email => "tot@tot.com",
+  :password => 'totadmin'
+)
+newRootUser.save!(:validate => false)
