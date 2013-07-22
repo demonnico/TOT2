@@ -6,8 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-oldRootUser = User.find(:email => "tot@tot.com")
-oldRootUser.destory
+oldRootUserArray = User.where(:email => "tot@tot.com")
+oldRootUserArray.first.destroy
 
 newRootUser = User.new(
   :email => "tot@tot.com",
