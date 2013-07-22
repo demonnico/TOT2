@@ -37,6 +37,20 @@ Login use default admin account with email: tot@tot.com, password: totadmin.
 Click 'Upload' in the top of the admin page.  
 Upload ipa and dSYM files.
 
-***We suggest register a new user and award permissions to users, instead of manage apps use default admin account.
+***We suggest register a new user and award permissions to users, instead of manage apps use default admin account.***  
 
 ####4.Download apps in iOS devices
+
+Open [http://your-ip-or-host-of-rails-server:3000](http://your-ip-or-host-of-rails-server:3000) on iOS devices.
+Download apps.
+
+####5.Reset admin account
+
+Just run ***rake db:seed** to reset default account:
+
+```
+$ cd TOT2
+$ rake db:seed
+```
+
+Then you can login the TOT2 admin page, [http://localhost:3000/admin] with email: tot@tot.com, password: totadmin.
