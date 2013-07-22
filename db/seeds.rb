@@ -7,7 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 oldRootUserArray = User.where(:email => "tot@tot.com")
-oldRootUserArray.first.destroy
+oldUser = oldRootUserArray.first
+if oldUser
+	oldUser.destroy
+end
 
 newRootUser = User.new(
   :email => "tot@tot.com",
