@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  def set_is_admin(boolean)
+  	self.is_admin = boolean if !!boolean == boolean #make sure new boolean value is a boolean
+  end
 end
