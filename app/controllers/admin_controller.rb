@@ -44,6 +44,9 @@ class AdminController < ApplicationController
 		    flash[:notice] = notice_string
 		    flash[:alert] = alert_string
 
+		    if alert_string == nil # upload successed, redirect to apps page
+		    	redirect_to '/admin'
+		    end
 		end
 	end
 end
