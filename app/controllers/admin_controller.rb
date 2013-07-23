@@ -11,9 +11,11 @@ class AdminController < ApplicationController
 		end
 			
 		if request.request_method == 'POST'
-			uploaded_io = params[:ipa]
-			File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'w') do |file|
-				file.write(uploaded_io.read)
+			uploaded_ipa_io = params[:ipa]
+			uploaded_ipa_name = Rails.root.join('public', 'uploads', uploaded_ipa_io.original_filename)
+
+			File.open(uploaded_ipa_name, 'wb+') do |file|
+				file.write(uploaded_ipa_io.read)
 			end
 		end
 	end
