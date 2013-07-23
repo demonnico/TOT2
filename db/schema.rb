@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130722085139) do
+ActiveRecord::Schema.define(:version => 20130723060838) do
+
+  create_table "app_versions", :force => true do |t|
+    t.string   "app_name"
+    t.string   "version"
+    t.string   "short_version"
+    t.integer  "beta_version"
+    t.string   "icon_url"
+    t.datetime "release_date"
+    t.text     "change_log"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "apps", :force => true do |t|
+    t.string   "bundle_id"
+    t.integer  "last_version"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

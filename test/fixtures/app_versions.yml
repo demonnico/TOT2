@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  app_name: MyString
+  version: MyString
+  short_version: MyString
+  beta_version: 1
+  icon_url: MyString
+  release_date: 2013-07-23 14:08:38
+  change_log: MyText
+
+two:
+  app_name: MyString
+  version: MyString
+  short_version: MyString
+  beta_version: 1
+  icon_url: MyString
+  release_date: 2013-07-23 14:08:38
+  change_log: MyText
