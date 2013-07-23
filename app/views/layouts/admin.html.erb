@@ -1,60 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>TOT2</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
+    <head>
+        <title>TOT2</title>
+        <%= stylesheet_link_tag    "application", :media => "all" %>
+        <%= javascript_include_tag "application" %>
+        <%= csrf_meta_tags %>
+    </head>
 <body>
 
 <div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="/">TOT2</a>
-      <a class="brand" href="/admin">admin</a>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/">TOT2</a>
+            <a class="brand" href="/admin">admin</a>
 
-      <% if can? :manage, @user %>
-        <ul class="nav">
-          <li><p>&nbsp;&nbsp;&nbsp;&nbsp;</p></li>
-        </ul>
+            <% if can? :manage, @user %>
+                <ul class="nav">
+                    <li><p>&nbsp;&nbsp;&nbsp;&nbsp;</p></li>
+                </ul>
 
-        <ul class="nav">
-          <li <%= "class=active" if action_name == 'apps' %>><a href="/admin/apps">Apps</a></li>
-        </ul>
+                <ul class="nav">
+                    <li <%= "class=active" if action_name == 'apps' %>><a href="/admin/apps">Apps</a></li>
+                </ul>
 
-        <ul class="nav">
-          <li <%= "class=active" if action_name == 'users' %>><a href="/admin/users">Users</a></li>
-        </ul>
+                <ul class="nav">
+                    <li <%= "class=active" if action_name == 'users' %>><a href="/admin/users">Users</a></li>
+                </ul>
 
-        <ul class="nav">
-          <li <%= "class=active" if action_name == 'upload' %>><a href="/admin/upload">Upload</a></li>
-        </ul>
-      <% end %>
+                <ul class="nav">
+                    <li <%= "class=active" if action_name == 'upload' %>><a href="/admin/upload">Upload</a></li>
+                </ul>
+            <% end %>
 
-      <p class="navbar-text pull-right">
-      <% if user_signed_in? %>
-        Logged in as <strong><%= current_user.email %></strong>.
-        <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-      <% else %>
-        <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-        <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-      <% end %>
-      </div>
-  </div>
+            <p class="navbar-text pull-right">
+            <% if user_signed_in? %>
+                Logged in as <strong><%= current_user.email %></strong>.
+                <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+            <% else %>
+                <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+                <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+            <% end %>
+        </div>
+    </div>
 </div>
 
 <div class="container">
 
-  <% if notice %>
+    <% if notice %>
     <p class="alert alert-notice"><%= notice %></p>
-  <% end %>
-  <% if alert %>
+    <% end %>
+    <% if alert %>
     <p class="alert alert-error"><%= alert %></p>
-  <% end %>
+    <% end %>
 
-  <%= yield %>
+    <%= yield %>
 </div>
 
 </body>
