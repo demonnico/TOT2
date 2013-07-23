@@ -1,6 +1,6 @@
 <h2>Upload</h2>
 <br/>
-<%= form_for :app_version, url: '/admin/upload' do |f| %>
+<%= form_for :app_version, url: '/admin/upload', :html => { :multipart => true } do |f| %>
 
 	<%# Change log text area %>
 	<p>
