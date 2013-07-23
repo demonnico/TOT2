@@ -6,6 +6,10 @@ class AdminController < ApplicationController
 	end
 
 	def upload
+		if current_user == nil || !(can? :manage, @app)
+			redirect_to '/admin'
+		end
+			
 		if request.request_method == 'POST'
 			uploaded_io = params[:ipa]
 			File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'w') do |file|
