@@ -1,1 +1,28 @@
-<h1>upload</h1>
+<h2>Upload</h2>
+<br/>
+	<%= form_for :app_version, url: '/admin/upload' do |f| %>
+
+	<%# Change log text area %>
+	<p>
+		<%= f.label :change_log %><br>
+		<%= f.text_area :change_log, :rows => 10, :size => "24x6" %>
+	</p>
+
+	<%# ipa upload %>
+	<p>
+		<%= f.label "Select ipa file to upload" %>
+		<%= file_field_tag 'ipa' %>
+	</p>
+
+	<br />
+	<%#  dSYM upload %>
+	<p>
+		<%= f.label "Select dSYM file to upload" %>
+		<%= file_field_tag 'dsym' %>
+	</p>
+
+	<%# Submit button %>
+	<p>
+		<%= f.submit "Upload ipa" %>
+	</p>
+<% end %>
