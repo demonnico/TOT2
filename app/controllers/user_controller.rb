@@ -7,6 +7,8 @@ class UserController < ApplicationController
 		@users = User.all
 	end
 
+	# warning : when deleting users check whether it is self.
+
 	#############################################################################
 	# private methods
 

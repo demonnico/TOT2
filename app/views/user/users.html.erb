@@ -70,7 +70,11 @@ is_admin: true
 				</td>
 
 				<%# Delete Link %>
-				<td><a href='/users/<%= user.id %>/delete'>Delete</a></td>
+				<% if current_user != user %>
+					<td><a href='/users/<%= user.id %>/delete'>Delete</a></td>
+				<% else %>
+					<td>Myself</td>
+				<% end %>
 			</tr>
 		<% end %>
 	</tbody>
