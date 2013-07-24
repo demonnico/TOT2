@@ -1,5 +1,7 @@
 class AdminController < ApplicationController
 
+	layout '_navigation'
+
 	include AdminHelper
 
 	def apps
@@ -52,6 +54,18 @@ class AdminController < ApplicationController
 		    if alert_string == nil # upload successed, redirect to apps page
 		    	redirect_to '/admin'
 		    end
+		end
+	end
+
+
+	private
+	
+	# helper method, create dir if it doesn't exist
+	def make_dir_at_path(string)
+		dir = File.dirname(string)
+
+		unless File.directory?(dir)
+			FileUtils.mkdir_p(dir)
 		end
 	end
 end
