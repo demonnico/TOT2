@@ -16,5 +16,5 @@ newRootUser = User.new(
   :email => "tot@tot.com",
   :password => 'totadmin',
 )
-newRootUser.set_is_admin(true)
+newRootUser.set_role(USER_ROLE_SYSTEM_ADMIN)
 newRootUser.save!(:validate => false)

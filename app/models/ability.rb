@@ -5,11 +5,21 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
       user ||= User.new # guest user (not logged in)
-      if user.admin?
+
+      case user.role
+      when USER_ROLE_SYSTEM_ADMIN
         can :manage, :all
+      when USER_ROLE_APP_ADMIN
+        can :manage, App
+        can :manage, AppVersion
+      when USER_ROLE_VIEWER
+        can :read, App
+        can :read, AppVersion
       else
-        can :read, :all
+        can :read, App
+        can :read, AppVersion
       end
+
     #
     # The first argument to `can` is the action you are giving the user 
     # permission to do.

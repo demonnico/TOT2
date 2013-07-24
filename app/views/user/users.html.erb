@@ -29,10 +29,18 @@ is_admin: true
 
 	<tbody>
 		<% @users.each do |user| %>
+			<% case user.role %>
+			<% when USER_ROLE_SYSTEM_ADMIN %>
+			<% rollString = "System Admin" %>
+			<% when USER_ROLE_APP_ADMIN %>
+			<% rollString = "App Admin" %>
+			<% when USER_ROLE_VIEWER %>
+			<% rollString = "App Viewer" %>
+			<% end %>
 			<tr>
 				<td><%= user.id %></td>	
 				<td><a href="mailto:<%= user.email %>"><%=user.email%></a></td>
-				<td><%= user.admin? ? "Manager" : "User" %></td>
+				<td><%= rollString %></td>
 				<td>Change Roll Delete</td>
 			</tr>
 		<% end %>
