@@ -2,11 +2,17 @@ class UploadController < ApplicationController
 
 	layout '_navigation'
 
+	#############################################################################
+
 	def upload
+		# check permission
 		if current_user == nil || !(can? :manage, @app)
+			flash[:notice] = "You don't have permission to access upload page."
 			redirect_to '/admin'
+			return
 		end
 
+		# save files if ipa POSTed
 		if request.request_method == 'POST' # an upload performed with POST method
 
 			notice_string = "Upload successed."
@@ -49,9 +55,9 @@ class UploadController < ApplicationController
 		end
 	end
 
+	#############################################################################
 
-	private
-	
+	private	
 	# helper method, create dir if it doesn't exist
 	def make_dir_at_path(string)
 		dir = File.dirname(string)
