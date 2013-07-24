@@ -23,25 +23,54 @@ is_admin: true
 			<th>UID</th>
 			<th>Email</th>
 			<th>Roll</th>
-			<th>Action</th>
+			<th>Change Roll</th>
+			<th>Delete</th>
 		</tr>
 	</thead>
 
 	<tbody>
 		<% @users.each do |user| %>
+			<%# Role string %>
 			<% case user.role %>
 			<% when USER_ROLE_SYSTEM_ADMIN %>
-			<% rollString = "System Admin" %>
+				<% roleString = "System Admin" %>
 			<% when USER_ROLE_APP_ADMIN %>
-			<% rollString = "App Admin" %>
+				<% roleString = "App Admin" %>
 			<% when USER_ROLE_VIEWER %>
-			<% rollString = "App Viewer" %>
+				<% roleString = "App Viewer" %>
 			<% end %>
+
 			<tr>
+				<%# User ID %>
 				<td><%= user.id %></td>	
+
+				<%# Mail %>
 				<td><a href="mailto:<%= user.email %>"><%=user.email%></a></td>
-				<td><%= rollString %></td>
-				<td>Change Roll Delete</td>
+
+				<%# Role String %>
+				<td><%= roleString %></td>
+
+				<%# Change Role Link %>
+				<td>
+					<% if user.role == USER_ROLE_VIEWER %>
+						App Viewer |
+						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_APP_ADMIN%>'>App Admin</a> |
+						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_SYSTEM_ADMIN%>'>System Admin</a>
+					<% end %>
+					<% if user.role == USER_ROLE_APP_ADMIN %>
+						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_VIEWER%>'>App Viewer</a> |
+						App Admin |
+						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_SYSTEM_ADMIN%>'>System Admin</a>
+					<% end %>
+					<% if user.role == USER_ROLE_SYSTEM_ADMIN %>
+						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_VIEWER%>'>App Viewer</a> |
+						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_APP_ADMIN%>'>App Admin</a> |
+						System Admin
+					<% end %>
+				</td>
+
+				<%# Delete Link %>
+				<td><a href='/users/<%= user.id %>/delete'>Delete</a></td>
 			</tr>
 		<% end %>
 	</tbody>
