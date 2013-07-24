@@ -13,7 +13,7 @@ class AdminController < ApplicationController
 
 	# check access permission
 	def authorize
-		if current_user == nil || !(can? :read, @app)
+		if current_user == nil
 			redirect_to '/users/sign_in'
 			return
 		end 
