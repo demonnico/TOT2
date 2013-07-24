@@ -10,7 +10,7 @@ TOT2::Application.routes.draw do
 
   match 'admin/apps', :to => 'admin#apps'
   match 'admin/users', :to => 'admin#users'
-  match 'admin/upload', :to => 'admin#upload'
+  match 'admin/upload', :to => 'upload#upload'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
