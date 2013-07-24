@@ -9,7 +9,7 @@ TOT2::Application.routes.draw do
   match 'admin/index', :to => 'admin#apps'
 
   match 'admin/apps', :to => 'admin#apps'
-  match 'admin/users', :to => 'admin#users'
+  match 'admin/users', :to => 'user#users'
   match 'admin/upload', :to => 'upload#upload'
 
   # The priority is based upon order of creation:
