@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  before_save :default_values
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -15,5 +18,9 @@ class User < ActiveRecord::Base
         integer == USER_ROLE_VIEWER)
       self.role = integer
     end
+  end
+
+  def default_values
+    self.role ||= USER_ROLE_VIEWER
   end
 end
