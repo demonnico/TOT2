@@ -15,7 +15,7 @@ TOT2::Application.routes.draw do
 
   # users admin
   match 'admin/users', :to => 'user#users'
-  match '/admin/users/1/changerole/2', :to => 'users#changerole'
+  match '/admin/users/:user_id/changerole/:role', :to => 'user#changerole'
 
 
 

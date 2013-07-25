@@ -1,10 +1,15 @@
 class UserController < ApplicationController
 
 	layout '_navigation'
-	before_filter :authorize, :only => [:users]
+	before_filter :authorize, :only => [:users, :changerole]
 
 	def users
 		@users = User.all
+	end
+
+	def changerole
+		# params {"controller"=>"user", "action"=>"changerole", "user_id"=>"1", "role"=>"2"}
+		redirect_to '/admin/users'
 	end
 
 	# warning : when deleting users check whether it is self.
