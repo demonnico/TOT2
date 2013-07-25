@@ -20,5 +20,9 @@ class User < ActiveRecord::Base
 
   def default_values
     self.role ||= USER_ROLE_VIEWER
+
+    if !roleAvailable?(self.role)
+      return false
+    end
   end
 end

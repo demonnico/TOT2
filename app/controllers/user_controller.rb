@@ -14,7 +14,7 @@ class UserController < ApplicationController
 		role = params[:role]
 		
 		user = User.find(userId)
-		if user
+		if user && user != current_user
 			user.role = role
 			user.save
 		end
