@@ -16,7 +16,7 @@ TOT2::Application.routes.draw do
   # users admin
   match 'admin/users', :to => 'user#users'
   match '/admin/users/:user_id/changerole/:role', :to => 'user#changerole'
-
+  match '/admin/users/:user_id/delete', :to => 'user#delete'
 
 
   # The priority is based upon order of creation:

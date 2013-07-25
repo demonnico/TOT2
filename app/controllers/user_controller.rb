@@ -22,7 +22,15 @@ class UserController < ApplicationController
 		redirect_to '/admin/users'
 	end
 
-	# warning : when deleting users check whether it is self.
+	def delete
+		userId = params[:user_id]
+		user = User.find(userId)
+		if user && user != current_user
+			user.destroy
+		end
+
+		redirect_to '/admin/users'
+	end
 
 	#############################################################################
 	# private methods
