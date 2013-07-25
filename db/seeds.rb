@@ -9,12 +9,14 @@
 oldRootUserArray = User.where(:email => "tot@tot.com")
 oldUser = oldRootUserArray.first
 if oldUser
-	oldUser.destroy
+	oldUser.password = 'totadmin'
+	oldUser.set_role(USER_ROLE_SYSTEM_ADMIN)
+	oldUser.save
+else
+	newRootUser = User.new(
+		:email => "tot@tot.com",
+		:password => 'totadmin',
+	)
+	newRootUser.set_role(USER_ROLE_SYSTEM_ADMIN)
+	newRootUser.save!(:validate => false)
 end
-
-newRootUser = User.new(
-  :email => "tot@tot.com",
-  :password => 'totadmin',
-)
-newRootUser.set_role(USER_ROLE_SYSTEM_ADMIN)
-newRootUser.save!(:validate => false)
