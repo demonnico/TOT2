@@ -9,6 +9,16 @@ class UserController < ApplicationController
 
 	def changerole
 		# params {"controller"=>"user", "action"=>"changerole", "user_id"=>"1", "role"=>"2"}
+
+		userId = params[:user_id]
+		role = params[:role]
+		
+		user = User.find(userId)
+		if user
+			user.role = role
+			user.save
+		end
+
 		redirect_to '/admin/users'
 	end
 
