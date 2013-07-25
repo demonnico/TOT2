@@ -13,9 +13,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   def set_role(integer)
-    if (integer == USER_ROLE_SYSTEM_ADMIN ||
-        integer == USER_ROLE_APP_ADMIN ||
-        integer == USER_ROLE_VIEWER)
+    if roleAvailable? integer
       self.role = integer
     end
   end
