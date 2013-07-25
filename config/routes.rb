@@ -1,16 +1,23 @@
 TOT2::Application.routes.draw do
   devise_for :users
 
+  # download
   root :to => 'download#index'
-
   get "download/index"
 
+  # app admin
   match 'admin', :to => 'admin#apps'
   match 'admin/index', :to => 'admin#apps'
-
   match 'admin/apps', :to => 'admin#apps'
-  match 'admin/users', :to => 'user#users'
+
+  # upload
   match 'admin/upload', :to => 'upload#upload'
+
+  # users admin
+  match 'admin/users', :to => 'user#users'
+  match '/admin/users/1/changerole/2', :to => 'users#changerole'
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

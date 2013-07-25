@@ -54,17 +54,17 @@ is_admin: true
 				<td>
 					<% if user.role == USER_ROLE_VIEWER %>
 						App Viewer |
-						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_APP_ADMIN%>'>App Admin</a> |
-						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_SYSTEM_ADMIN%>'>System Admin</a>
+						<a href='/admin/users/<%=user.id%>/changerole/<%=USER_ROLE_APP_ADMIN%>'>App Admin</a> |
+						<a href='/admin/users/<%=user.id%>/changerole/<%=USER_ROLE_SYSTEM_ADMIN%>'>System Admin</a>
 					<% end %>
 					<% if user.role == USER_ROLE_APP_ADMIN %>
-						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_VIEWER%>'>App Viewer</a> |
+						<a href='/admin/users/<%=user.id%>/changerole/<%=USER_ROLE_VIEWER%>'>App Viewer</a> |
 						App Admin |
-						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_SYSTEM_ADMIN%>'>System Admin</a>
+						<a href='/admin/users/<%=user.id%>/changerole/<%=USER_ROLE_SYSTEM_ADMIN%>'>System Admin</a>
 					<% end %>
 					<% if user.role == USER_ROLE_SYSTEM_ADMIN %>
-						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_VIEWER%>'>App Viewer</a> |
-						<a href='/users/<%=user.id%>/changerole/<%=USER_ROLE_APP_ADMIN%>'>App Admin</a> |
+						<a href='/admin/users/<%=user.id%>/changerole/<%=USER_ROLE_VIEWER%>'>App Viewer</a> |
+						<a href='/admin/users/<%=user.id%>/changerole/<%=USER_ROLE_APP_ADMIN%>'>App Admin</a> |
 						System Admin
 					<% end %>
 				</td>
