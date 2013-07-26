@@ -25,7 +25,7 @@ class UploadController < ApplicationController
 				notice_string = nil
 				alert_string = "IPA file doesn't exist."
 			elsif !ipa_io_type_available?(uploaded_ipa_io) # ipa type error, upload failed
-				notice = nil
+				notice_string = nil
 				alert_string = "Please choose an IPA file."
 			elsif uploaded_dSYM_io == nil # dsym is nil, upload successed with warning
 				notice_string = "IPA upload successed, but it's suggested that to upload a dSYM. You can upload it later in \"Apps\" tab."
