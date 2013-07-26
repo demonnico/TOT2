@@ -20,7 +20,6 @@ class UploadController < ApplicationController
 			uploaded_ipa_io = params[:ipa] # uploaded ipa file handle
 			if uploaded_ipa_io != nil # if ipa exist, save it to local storage
 				uploaded_ipa_name = Rails.root.join('public', 'uploads', uploaded_ipa_io.original_filename)
-				FileSystemHelper.make_dir_at_path(uploaded_ipa_name)
 				FileSystemHelper.save_io_to_file(uploaded_ipa_io, uploaded_ipa_name)
 
 				Zip::ZipFile.open(uploaded_ipa_name) do |zipfile|
@@ -36,7 +35,6 @@ class UploadController < ApplicationController
 				uploaded_dsym_io = params[:dsym] #uploaded dSYM file handle
 				if uploaded_dsym_io != nil #if dSYM exist, save it to local storage
 					uploaded_dsym_name = Rails.root.join('public', 'uploads', uploaded_dsym_io.original_filename)
-					FileSystemHelper.make_dir_at_path(uploaded_dsym_name)
 					FileSystemHelper.save_io_to_file(uploaded_dsym_io, uploaded_dsym_name)
 				else #if dSYM doesn't exist, make an warning to user
 					notice_string = "IPA upload successed, but it's suggested that to upload a dSYM. You can upload it later in \"Apps\" tab."

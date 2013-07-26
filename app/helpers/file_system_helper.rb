@@ -12,6 +12,9 @@ module FileSystemHelper
 		end
 
 		def save_io_to_file(io, file_path)
+
+			make_dir_at_path(file_path)
+
 			File.open(file_path, 'wb+') do |file|
 				file.write(io.read)
 			end
