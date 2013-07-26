@@ -13,6 +13,10 @@ module FileSystemHelper
 
 		def save_io_to_file(io, file_path)
 
+			if io == nil || file_path == nil
+				return
+			end
+
 			make_dir_at_path(file_path)
 
 			File.open(file_path, 'wb+') do |file|
