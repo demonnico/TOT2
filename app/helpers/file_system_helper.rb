@@ -10,6 +10,12 @@ module FileSystemHelper
 				FileUtils.mkdir_p(dir)
 			end
 		end
+
+		def save_io_to_file(io, file_path)
+			File.open(file_path, 'wb+') do |file|
+				file.write(io.read)
+			end
+		end
 	end
-	
+
 end
