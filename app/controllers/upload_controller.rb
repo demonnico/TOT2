@@ -13,36 +13,41 @@ class UploadController < ApplicationController
 		# save files if ipa POSTed
 		if request.request_method == 'POST' # an upload performed with POST method
 
-			notice_string = "Upload successed."
-			alert_string = nil;
 
-			#save ipa to disk
+			# get io from posted params
 			uploaded_ipa_io = params[:ipa] # uploaded ipa file handle
-			if uploaded_ipa_io != nil # if ipa exist, save it to local storage
-				FileSystemHelper.save_io_to_file(uploaded_ipa_io, temp_file_path_for_ipa)
+			uploaded_dSYM_io = params[:dsym] #uploaded dSYM file handle
 
+			# check file available
+			notice_string = "Upload successed."
+			alert_string = nil
+			if uploaded_ipa_io == nil # ipa is nil, upload failed
+				notice_string = nil
+				alert_string = "IPA file doesn't exist."
+			elsif !ipa_io_type_available?(uploaded_ipa_io) # ipa type error, upload failed
+				notice = nil
+				alert_string = "Please choose an IPA file."
+			elsif uploaded_dSYM_io == nil # dsym is nil, upload successed with warning
+				notice_string = "IPA upload successed, but it's suggested that to upload a dSYM. You can upload it later in \"Apps\" tab."
+				alert_string = nil;
+			elsif !dSYM_io_type_available?(uploaded_dSYM_io) # dsym type error, upload failed
+				notice_string = nil
+				alert_string = "Please choose a zip file as dSYM"
+			end
+
+			# if file available, save to disk
+			if alert_string == nil
+				FileSystemHelper.save_io_to_file(uploaded_ipa_io, temp_file_path_for_ipa)
 				Zip::ZipFile.open(temp_file_path_for_ipa) do |zipfile|
 				end
-
-			else #if ipa doesn't exist, make an error to user
-				notice_string = nil;
-				alert_string = "IPA file doesn't exist."
-			end
-
-			#save dSYM to disk, if alert_string == nil, which indicates ipa upload successed
-			if alert_string == nil			
-				uploaded_dsym_io = params[:dsym] #uploaded dSYM file handle
-				if uploaded_dsym_io != nil #if dSYM exist, save it to local storage
-					FileSystemHelper.save_io_to_file(uploaded_dsym_io, temp_file_path_for_dsym)
-				else #if dSYM doesn't exist, make an warning to user
-					notice_string = "IPA upload successed, but it's suggested that to upload a dSYM. You can upload it later in \"Apps\" tab."
-					alert_string = nil;
+				if uploaded_dSYM_io
+					FileSystemHelper.save_io_to_file(uploaded_dSYM_io, temp_file_path_for_dsym)
 				end
 			end
 
+			# notice user messages
 		    flash[:notice] = notice_string
 		    flash[:alert] = alert_string
-
 		    if alert_string == nil # upload successed, redirect to apps page
 		    	redirect_to '/admin'
 		    end
@@ -61,6 +66,26 @@ class UploadController < ApplicationController
 			redirect_to '/admin'
 			return
 		end 
+	end
+
+	def ipa_io_type_available?(io)
+		if io == nil
+			return false
+		elsif io.content_type != "application/octet-stream"
+			return false
+		end
+
+		return true
+	end
+
+	def dSYM_io_type_available?(io)
+		if io == nil
+			return false
+		elsif io.content_type != "application/zip"
+			return false
+		end
+
+		return true
 	end
 
 	def temp_file_path_for_ipa
