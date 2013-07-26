@@ -1,6 +1,7 @@
 class UploadController < ApplicationController
 
 	require 'zip/zip'
+	require 'file_system_helper'
 
 	layout '_navigation'
 	before_filter :authorize, :only => [:upload]
@@ -19,7 +20,7 @@ class UploadController < ApplicationController
 			uploaded_ipa_io = params[:ipa] # uploaded ipa file handle
 			if uploaded_ipa_io != nil # if ipa exist, save it to local storage
 				uploaded_ipa_name = Rails.root.join('public', 'uploads', uploaded_ipa_io.original_filename)
-				make_dir_at_path(uploaded_ipa_name)
+				FileSystemHelper.make_dir_at_path(uploaded_ipa_name)
 				File.open(uploaded_ipa_name, 'wb+') do |file|
 					file.write(uploaded_ipa_io.read)
 				end
@@ -37,7 +38,7 @@ class UploadController < ApplicationController
 				uploaded_dsym_io = params[:dsym] #uploaded dSYM file handle
 				if uploaded_dsym_io != nil #if dSYM exist, save it to local storage
 					uploaded_dsym_name = Rails.root.join('public', 'uploads', uploaded_dsym_io.original_filename)
-					make_dir_at_path(uploaded_dsym_name)
+					FileSystemHelper.make_dir_at_path(uploaded_dsym_name)
 					File.open(uploaded_dsym_name, 'wb+') do |file|
 						file.write(uploaded_dsym_io.read)
 					end
@@ -68,15 +69,6 @@ class UploadController < ApplicationController
 			redirect_to '/admin'
 			return
 		end 
-	end
-
-	# helper method, create dir if it doesn't exist
-	def make_dir_at_path(string)
-		dir = File.dirname(string)
-
-		unless File.directory?(dir)
-			FileUtils.mkdir_p(dir)
-		end
 	end
 
 end
