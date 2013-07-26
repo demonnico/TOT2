@@ -1,5 +1,7 @@
 class UploadController < ApplicationController
 
+	require 'zip/zip'
+
 	layout '_navigation'
 	before_filter :authorize, :only => [:upload]
 
@@ -21,6 +23,10 @@ class UploadController < ApplicationController
 				File.open(uploaded_ipa_name, 'wb+') do |file|
 					file.write(uploaded_ipa_io.read)
 				end
+
+				Zip::ZipFile.open(uploaded_ipa_name) do |zipfile|
+				end
+
 			else #if ipa doesn't exist, make an error to user
 				notice_string = nil;
 				alert_string = "IPA file doesn't exist."
