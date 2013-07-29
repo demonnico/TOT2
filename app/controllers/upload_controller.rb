@@ -68,10 +68,11 @@ class UploadController < ApplicationController
 		end 
 	end
 
+	# check file type
 	def ipa_io_type_available?(io)
 		if io == nil
 			return false
-		elsif io.content_type != "application/octet-stream"
+		elsif io.content_type != "application/octet-stream" || File.extname(io.original_filename).downcase != ".ipa"
 			return false
 		end
 
@@ -81,13 +82,14 @@ class UploadController < ApplicationController
 	def dSYM_io_type_available?(io)
 		if io == nil
 			return false
-		elsif io.content_type != "application/zip"
+		elsif io.content_type != "application/zip" || File.extname(io.original_filename).downcase != ".zip"
 			return false
 		end
 
 		return true
 	end
 
+	# gen temp file path
 	def temp_file_path_for_ipa
 		uploaded_ipa_name = Rails.root.join('public', 'uploads', session[:session_id], 'temp_ipa.ipa')
 		return uploaded_ipa_name
