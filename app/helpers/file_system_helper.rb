@@ -48,6 +48,7 @@ module FileSystemHelper
 					FileUtils.rm(unzip_path) if File.exist?(unzip_path) # rm previous file
 					make_dir_at_path(unzip_path) # create dir if needed
 					zipfile.extract(zipentry, unzip_path) # extract file
+					next
 				end
 			}
 			end

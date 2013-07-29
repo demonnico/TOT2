@@ -49,7 +49,12 @@ class UploadController < ApplicationController
 				# unzip Info.plist
 				plist_zip_path = app_path + "Info.plist"
 				plist_unzip_path =  temp_file_path_for_file_name("Info.plist")
-				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, {plist_zip_path => plist_unzip_path})
+				icon_zip_path = app_path + "Icon@2x.png"
+				icon_unzip_path = temp_file_path_for_file_name("Icon@2x.png")
+				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, {
+					plist_zip_path => plist_unzip_path,
+					icon_zip_path => icon_unzip_path
+				})
 
 				# save dSYM to disk
 				if uploaded_dSYM_io
