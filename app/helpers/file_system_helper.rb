@@ -31,7 +31,7 @@ module FileSystemHelper
 		def find_app_path_from_zip_file(zip_file_path)
 			first_file_name = Zip::ZipFile.open(zip_file_path).first.name
 			matched_name = /Payload\/\w+\.app\//.match(first_file_name)
-			return matched_name.string
+			matched_name.to_s
 		end
 
 		# helper method, zip a zipfile's subfile to destination path
@@ -41,6 +41,15 @@ module FileSystemHelper
 		# 		e.g. : unzip zip/a to /tmp/a and unzip zip/b to /tmp/b, pass {"zip/a":"/tmp/a", "zip/b":"tmp/b"}
 		def zip_file_to_destination(zip_file_path, unzip_path_hash)
 			Zip::ZipFile.open(zip_file_path) do |zipfile|
+			zipfile.each { |zipentry|
+				zip_path = zipentry.name # path for file to unzip in zip file
+				unzip_path = unzip_path_hash[zip_path] # destination path for file to unzip
+				if unzip_path # extract file if needed
+					FileUtils.rm(unzip_path) if File.exist?(unzip_path) # rm previous file
+					make_dir_at_path(unzip_path) # create dir if needed
+					zipfile.extract(zipentry, unzip_path) # extract file
+				end
+			}
 			end
 		end
 	end
