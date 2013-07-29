@@ -31,7 +31,7 @@ module FileSystemHelper
 		def find_app_path_from_zip_file(zip_file_path)
 			first_file_name = Zip::ZipFile.open(zip_file_path).first.name
 			matched_name = /Payload\/\w+\.app\//.match(first_file_name)
-			return matched_name
+			return matched_name.string
 		end
 
 		# helper method, zip a zipfile's subfile to destination path

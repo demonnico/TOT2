@@ -34,11 +34,24 @@ class UploadController < ApplicationController
 				alert_string = "Please choose a zip file as dSYM"
 			end
 
-			# if file available, save to disk
-			if alert_string == nil
+			if alert_string == nil # if file available, handle file to disk
+				# save file to disk
 				FileSystemHelper.save_io_to_file(uploaded_ipa_io, temp_file_path_for_ipa)
+
+				# find zip path for zip file
 				app_path = FileSystemHelper.find_app_path_from_zip_file(temp_file_path_for_ipa)
-				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, nil)
+				if !app_path #if ipa doesn't exist, notice an error and return
+					flash[:notice] = nil
+					flash[:alert] = 'Invalide IPA file.'
+					return
+				end
+
+				# unzip Info.plist
+				plist_zip_path = app_path + "Info.plist"
+				plist_unzip_path =  temp_file_path_for_file_name("Info.plist")
+				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, {plist_zip_path: plist_unzip_path})
+
+				# save dSYM to disk
 				if uploaded_dSYM_io
 					FileSystemHelper.save_io_to_file(uploaded_dSYM_io, temp_file_path_for_dsym)
 				end
@@ -48,7 +61,7 @@ class UploadController < ApplicationController
 		    flash[:notice] = notice_string
 		    flash[:alert] = alert_string
 		    if alert_string == nil # upload successed, redirect to apps page
-		    	redirect_to '/admin'
+		    	# redirect_to '/admin'
 		    end
 		end
 	end
@@ -89,13 +102,16 @@ class UploadController < ApplicationController
 	end
 
 	# gen temp file path
+	def temp_file_path_for_file_name(file_name)
+		temp_file_path = Rails.root.join('public', 'uploads', session[:session_id], file_name)
+		return temp_file_path
+	end
+
 	def temp_file_path_for_ipa
-		uploaded_ipa_name = Rails.root.join('public', 'uploads', session[:session_id], 'temp_ipa.ipa')
-		return uploaded_ipa_name
+		return temp_file_path_for_file_name('temp_ipa.ipa')
 	end
 
 	def temp_file_path_for_dsym
-		uploaded_dsym_name = Rails.root.join('public', 'uploads', session[:session_id], 'temp_dsym.zip')
-		return uploaded_dsym_name
+		return temp_file_path_for_file_name('temp_dsym.zip')
 	end
 end
