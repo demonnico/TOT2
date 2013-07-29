@@ -1,6 +1,5 @@
 class UploadController < ApplicationController
 
-	require 'zip/zip'
 	require 'file_system_helper'
 
 	layout '_navigation'
@@ -38,8 +37,8 @@ class UploadController < ApplicationController
 			# if file available, save to disk
 			if alert_string == nil
 				FileSystemHelper.save_io_to_file(uploaded_ipa_io, temp_file_path_for_ipa)
-				Zip::ZipFile.open(temp_file_path_for_ipa) do |zipfile|
-				end
+				app_path = FileSystemHelper.find_app_path_from_zip_file(temp_file_path_for_ipa)
+				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, nil)
 				if uploaded_dSYM_io
 					FileSystemHelper.save_io_to_file(uploaded_dSYM_io, temp_file_path_for_dsym)
 				end
