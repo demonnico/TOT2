@@ -100,6 +100,22 @@ class UploadController < ApplicationController
 					uploaded_app.save
 				end
 
+				uploaded_version = AppVersion.new(
+						:beta_version => uploaded_app.last_version + 1,
+						:app_name => display_name,
+						:version => version_string,
+						:short_version => short_version_string, 
+						:release_date => DateTime.now,
+						:change_log => "123", 
+						:icon_path => "Icon", 
+						:itunes_artwork_path => "iTunesArtwork"
+					)
+				uploaded_app.app_versions << uploaded_version
+				uploaded_app.last_version += 1
+				uploaded_app.save
+
+				@info = uploaded_app.app_versions
+
 				# save dSYM to disk
 				if uploaded_dSYM_io
 					FileSystemHelper.save_io_to_file(uploaded_dSYM_io, temp_file_path_for_dsym)
