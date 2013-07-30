@@ -82,13 +82,16 @@ class UploadController < ApplicationController
 					return
 				end
 
-				# version, short version, bundle id, display_name
+				# version, short version, bundle id, display_name, change log
 				version_string = BinaryPlistHelper.get_version_string(parsed_hash) # version string
 				version_string = "unknown" if !version_string
 				short_version_string = BinaryPlistHelper.get_short_version_string(parsed_hash) # version short string
 				short_version_string = "unknown" if !short_version_string
 				display_name = BinaryPlistHelper.get_display_name(parsed_hash) # app display name
 				display_name = "unknown" if !display_name
+				post_hash = params["app_version"]
+				change_log = post_hash["change_log"] if post_hash
+				change_log = "This uploader is too lazy to write change log" if (!change_log || change_log.length == 0)
 
 				# query app
 				uploaded_app = App.where(:bundle_id => bundle_id).first
@@ -106,7 +109,7 @@ class UploadController < ApplicationController
 						:version => version_string,
 						:short_version => short_version_string, 
 						:release_date => DateTime.now,
-						:change_log => "123", 
+						:change_log => change_log, 
 						:icon_path => "Icon", 
 						:itunes_artwork_path => "iTunesArtwork"
 					)
