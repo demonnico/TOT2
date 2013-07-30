@@ -58,7 +58,7 @@ class UploadController < ApplicationController
 				})
 
 				@info = BinaryPlistHelper.hash_from_plist_file(plist_unzip_path)
-				@info = BinaryPlistHelper.get_display_name(@info)
+				@info = BinaryPlistHelper.get_icon_file_name(@info)
 
 				# save dSYM to disk
 				if uploaded_dSYM_io

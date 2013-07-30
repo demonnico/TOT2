@@ -15,14 +15,35 @@ module BinaryPlistHelper
 
 		# get icon's zip path from parsed_plist_hash and zip_app_path
 		# params: parsed_plist_hash : returned data from `hash_from_plist_file`
-		#			   zip_app_path : app path in zip. e.g. 'Payload/neteasemusic.app/'
-		# first find hash["CFBundleIconFiles"].lastObject
-		# then find hash["CFBundleIcons"]["CFBundlePrimaryIcon"]["CFBundleIconFiles"].lastObject
-		# then find hash["CFBundleIconFile"]
-		def get_icon_zip_path(parsed_plist_hash, zip_app_path)
-			return nil if (!parsed_plist_hash || !zip_app_path)
+		# first find parsed_plist_hash["CFBundleIconFiles"].last
+		# then find parsed_plist_hash["CFBundleIcons"]["CFBundlePrimaryIcon"]["CFBundleIconFiles"].last
+		# then find parsed_plist_hash["CFBundleIconFile"]
+		def get_icon_file_name(parsed_plist_hash)
+			return nil if (!parsed_plist_hash || !parsed_plist_hash.respond_to?(:has_value?))
 
+			icon_array = parsed_plist_hash["CFBundleIconFiles"] # first find parsed_plist_hash["CFBundleIconFiles"].last
+			if !icon_array || icon_array.length == 0 # then find parsed_plist_hash["CFBundleIcons"]["CFBundlePrimaryIcon"]["CFBundleIconFiles"].lastObject
+				bundle_icons = parsed_plist_hash["CFBundleIcons"]
+				if bundle_icons
+					primary_icon = bundle_icons["CFBundlePrimaryIcon"]
+					if primary_icon
+						icon_array = primary_icon["CFBundleIconFiles"]
+					end
+				end
+			end
 
+			if icon_array && icon_array.length != 0
+				return icon_array.last
+			else
+				return parsed_plist_hash["CFBundleIconFile"]
+			end
+
+			return parsed_plist_hash["CFBundleIconFile"]
+		end
+
+		# get iTuneArtwork
+		def get_itunes_artwork_file_name(parsed_plist_hash)
+			return 'iTuneArtwork'
 		end
 
 		# get version string from hash
