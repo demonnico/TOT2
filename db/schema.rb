@@ -14,15 +14,15 @@
 ActiveRecord::Schema.define(:version => 20130724144706) do
 
   create_table "app_versions", :force => true do |t|
-    t.string   "app_name"
-    t.string   "version"
-    t.string   "short_version"
-    t.integer  "beta_version"
-    t.string   "icon_url"
+    t.string   "app_name",      :default => "", :null => false
+    t.string   "version",       :default => "", :null => false
+    t.string   "short_version", :default => "", :null => false
+    t.integer  "beta_version",  :default => 0,  :null => false
+    t.string   "icon_url",      :default => "", :null => false
     t.datetime "release_date"
-    t.text     "change_log"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.text     "change_log",    :default => "", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "app_versions", ["app_name"], :name => "index_app_versions_on_app_name", :unique => true
