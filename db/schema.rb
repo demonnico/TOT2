@@ -25,12 +25,20 @@ ActiveRecord::Schema.define(:version => 20130724144706) do
     t.datetime "updated_at",    :null => false
   end
 
+  add_index "app_versions", ["app_name"], :name => "index_app_versions_on_app_name", :unique => true
+  add_index "app_versions", ["beta_version"], :name => "index_app_versions_on_beta_version", :unique => true
+  add_index "app_versions", ["release_date"], :name => "index_app_versions_on_release_date", :unique => true
+  add_index "app_versions", ["short_version"], :name => "index_app_versions_on_short_version", :unique => true
+  add_index "app_versions", ["version"], :name => "index_app_versions_on_version", :unique => true
+
   create_table "apps", :force => true do |t|
-    t.string   "bundle_id"
-    t.integer  "last_version"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.string   "bundle_id",    :default => "", :null => false
+    t.integer  "last_version", :default => 0,  :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
+
+  add_index "apps", ["bundle_id"], :name => "index_apps_on_bundle_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
