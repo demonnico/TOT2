@@ -39,7 +39,7 @@ class UploadController < ApplicationController
 				# save file to disk
 				FileSystemHelper.save_io_to_file(uploaded_ipa_io, temp_file_path_for_ipa)
 
-				# find zip path for zip file
+				# find zip path for zip file. e.g. 'Payload/neteasemusic.app/'
 				app_path = FileSystemHelper.find_app_path_from_zip_file(temp_file_path_for_ipa)
 				if !app_path #if ipa doesn't exist, notice an error and return
 					flash[:notice] = nil
@@ -58,6 +58,7 @@ class UploadController < ApplicationController
 				})
 
 				@info = BinaryPlistHelper.hash_from_plist_file(plist_unzip_path)
+				@info = BinaryPlistHelper.get_display_name(@info)
 
 				# save dSYM to disk
 				if uploaded_dSYM_io
