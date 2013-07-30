@@ -74,10 +74,21 @@ class UploadController < ApplicationController
 				# unzip icons
 				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, unzip_hash)
 
-				version_string = BinaryPlistHelper.get_version_string(parsed_hash) # version string
-				short_version_string = BinaryPlistHelper.get_short_version_string(parsed_hash) # version short string
+				# get bundle id
 				bundle_id = BinaryPlistHelper.get_bundle_id(parsed_hash) # bundle id
+				if !bundle_id
+					flash[:notice] = nil
+					flash[:alert] = 'Invalide IPA file.'
+					return
+				end
+
+				# version, short version, bundle id, display_name
+				version_string = BinaryPlistHelper.get_version_string(parsed_hash) # version string
+				version_string = "unknown" if !version_string
+				short_version_string = BinaryPlistHelper.get_short_version_string(parsed_hash) # version short string
+				short_version_string = "unknown" if !short_version_string
 				display_name = BinaryPlistHelper.get_display_name(parsed_hash) # app display name
+				display_name = "unknown" if !display_name
 
 				# save dSYM to disk
 				if uploaded_dSYM_io
