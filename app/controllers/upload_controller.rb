@@ -1,6 +1,7 @@
 class UploadController < ApplicationController
 
 	require 'file_system_helper'
+	require 'binary_plist_helper'
 
 	layout '_navigation'
 	before_filter :authorize, :only => [:upload]
@@ -55,6 +56,8 @@ class UploadController < ApplicationController
 					plist_zip_path => plist_unzip_path,
 					icon_zip_path => icon_unzip_path
 				})
+
+				@info = BinaryPlistHelper.hash_from_plist_file(plist_unzip_path)
 
 				# save dSYM to disk
 				if uploaded_dSYM_io
