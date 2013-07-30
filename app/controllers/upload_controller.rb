@@ -56,14 +56,23 @@ class UploadController < ApplicationController
 
 				# get info from Info.plist
 				parsed_hash = BinaryPlistHelper.hash_from_plist_file(plist_unzip_path)
+				unzip_hash = {}
 
-				icon_file_name = BinaryPlistHelper.get_icon_file_name(parsed_hash) # Icon file name
-				icon_zip_path = app_path + icon_file_name if icon_file_name # Icon zip path
-				icon_unzip_path = temp_file_path_for_file_name(icon_file_name) # Icon unzip path
+				# Icon file name
+				icon_file_name = BinaryPlistHelper.get_icon_file_name(parsed_hash)
+				if icon_file_name
+					unzip_hash[app_path + icon_file_name] = temp_file_path_for_file_name("Icon@2x.png")
+				else
+					unzip_hash[app_path + "Icon@2x.png"] = temp_file_path_for_file_name("Icon@2x.png")
+					unzip_hash[app_path + "Icon.png"] = temp_file_path_for_file_name("Icon.png")
+				end
 
-				itunes_artwork_file_name = BinaryPlistHelper.get_itunes_artwork_file_name(parsed_hash) # iTunesArtwork file name
-				itunes_artwork_zip_path = app_path + itunes_artwork_file_name # iTunesArtwork zip path
-				itunes_artwork_unzip_path = temp_file_path_for_file_name(itunes_artwork_file_name) # iTunesArtwork unzip path
+				# iTunesArtwork file name
+				itunes_artwork_file_name = BinaryPlistHelper.get_itunes_artwork_file_name(parsed_hash)
+				unzip_hash[app_path + itunes_artwork_file_name] = temp_file_path_for_file_name(itunes_artwork_file_name)
+
+				# unzip icons
+				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, unzip_hash)
 
 				version_string = BinaryPlistHelper.get_version_string(parsed_hash) # version string
 				short_version_string = BinaryPlistHelper.get_short_version_string(parsed_hash) # version short string
@@ -122,8 +131,8 @@ class UploadController < ApplicationController
 
 	# gen temp file path
 	def temp_file_path_for_file_name(file_name)
-		temp_file_path = Rails.root.join('public', 'uploads', session[:session_id], file_name)
-		return temp_file_path
+		ret_path = Rails.root.join('public', 'uploads', session[:session_id], file_name)
+		return ret_path
 	end
 
 	def temp_file_path_for_ipa
