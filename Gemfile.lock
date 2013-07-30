@@ -1,6 +1,7 @@
 GEM
   remote: http://ruby.taobao.org/
   specs:
+    CFPropertyList (2.2.0)
     actionmailer (3.2.13)
       actionpack (= 3.2.13)
       mail (~> 2.5.3)
@@ -114,12 +115,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cancan
+  CFPropertyList (= 2.2.0)
+  cancan (= 1.6.10)
   coffee-rails (~> 3.2.1)
-  devise
+  devise (= 3.0.0)
   jquery-rails
   rails (= 3.2.13)
-  rubyzip
+  rubyzip (= 0.9.9)
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)

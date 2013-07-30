@@ -8,9 +8,10 @@ gem 'rails', '3.2.13'
 
 gem 'sqlite3'
 
-gem 'devise'
-gem 'cancan'
-gem 'rubyzip'
+gem 'devise', '3.0.0'
+gem 'cancan', '1.6.10'
+gem 'rubyzip', '0.9.9'
+gem 'CFPropertyList', '2.2.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
