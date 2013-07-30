@@ -50,15 +50,25 @@ class UploadController < ApplicationController
 				# unzip Info.plist
 				plist_zip_path = app_path + "Info.plist"
 				plist_unzip_path =  temp_file_path_for_file_name("Info.plist")
-				icon_zip_path = app_path + "Icon@2x.png"
-				icon_unzip_path = temp_file_path_for_file_name("Icon@2x.png")
 				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, {
 					plist_zip_path => plist_unzip_path,
-					icon_zip_path => icon_unzip_path
 				})
 
-				@info = BinaryPlistHelper.hash_from_plist_file(plist_unzip_path)
-				@info = BinaryPlistHelper.get_icon_file_name(@info)
+				# get info from Info.plist
+				parsed_hash = BinaryPlistHelper.hash_from_plist_file(plist_unzip_path)
+
+				icon_file_name = BinaryPlistHelper.get_icon_file_name(parsed_hash) # Icon file name
+				icon_zip_path = app_path + icon_file_name if icon_file_name # Icon zip path
+				icon_unzip_path = temp_file_path_for_file_name(icon_file_name) # Icon unzip path
+
+				itunes_artwork_file_name = BinaryPlistHelper.get_itunes_artwork_file_name(parsed_hash) # iTunesArtwork file name
+				itunes_artwork_zip_path = app_path + itunes_artwork_file_name # iTunesArtwork zip path
+				itunes_artwork_unzip_path = temp_file_path_for_file_name(itunes_artwork_file_name) # iTunesArtwork unzip path
+
+				version_string = BinaryPlistHelper.get_version_string(parsed_hash) # version string
+				short_version_string = BinaryPlistHelper.get_short_version_string(parsed_hash) # version short string
+				bundle_id = BinaryPlistHelper.get_bundle_id(parsed_hash) # bundle id
+				display_name = BinaryPlistHelper.get_display_name(parsed_hash) # app display name
 
 				# save dSYM to disk
 				if uploaded_dSYM_io
