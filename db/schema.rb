@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(:version => 20130724144706) do
 
   add_index "app_versions", ["app_id"], :name => "index_app_versions_on_app_id"
   add_index "app_versions", ["app_name"], :name => "index_app_versions_on_app_name"
-  add_index "app_versions", ["beta_version"], :name => "index_app_versions_on_beta_version", :unique => true
-  add_index "app_versions", ["release_date"], :name => "index_app_versions_on_release_date", :unique => true
+  add_index "app_versions", ["beta_version"], :name => "index_app_versions_on_beta_version"
+  add_index "app_versions", ["release_date"], :name => "index_app_versions_on_release_date"
   add_index "app_versions", ["short_version"], :name => "index_app_versions_on_short_version"
   add_index "app_versions", ["version"], :name => "index_app_versions_on_version"
 

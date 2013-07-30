@@ -15,11 +15,11 @@ class CreateAppVersions < ActiveRecord::Migration
       t.timestamps
     end
 
+    add_index :app_versions, :beta_version,             :unique => false
     add_index :app_versions, :app_name,                 :unique => false
     add_index :app_versions, :version,                  :unique => false
     add_index :app_versions, :short_version,            :unique => false
-    add_index :app_versions, :beta_version,             :unique => true
-    add_index :app_versions, :release_date,             :unique => true
+    add_index :app_versions, :release_date,             :unique => false
     add_index :app_versions, :app_id,                   :unique => false
   end
 end
