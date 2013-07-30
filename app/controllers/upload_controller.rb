@@ -90,6 +90,16 @@ class UploadController < ApplicationController
 				display_name = BinaryPlistHelper.get_display_name(parsed_hash) # app display name
 				display_name = "unknown" if !display_name
 
+				# query app
+				uploaded_app = App.where(:bundle_id => bundle_id).first
+				if(!uploaded_app) # if bundle id never uploaded, create a new one
+					uploaded_app = App.new(
+						:bundle_id => bundle_id,
+						:last_version => 0,
+					)
+					uploaded_app.save
+				end
+
 				# save dSYM to disk
 				if uploaded_dSYM_io
 					FileSystemHelper.save_io_to_file(uploaded_dSYM_io, temp_file_path_for_dsym)
