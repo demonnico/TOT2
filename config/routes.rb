@@ -6,9 +6,9 @@ TOT2::Application.routes.draw do
   get "download/index"
 
   # app admin
-  match 'admin', :to => 'admin#apps'
-  match 'admin/index', :to => 'admin#apps'
-  match 'admin/apps', :to => 'admin#apps'
+  match 'admin', :to => 'app#apps'
+  match 'admin/index', :to => 'app#apps'
+  match 'admin/apps', :to => 'app#apps'
 
   # upload
   match 'admin/upload', :to => 'upload#upload'
