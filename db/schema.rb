@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20130724144706) do
     t.string   "short_version",       :default => "", :null => false
     t.datetime "release_date"
     t.text     "change_log",          :default => "", :null => false
+    t.string   "ipa_path",                            :null => false
+    t.string   "dsym_path",                           :null => false
     t.string   "icon_path"
     t.string   "itunes_artwork_path"
     t.integer  "app_id",                              :null => false

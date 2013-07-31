@@ -6,6 +6,8 @@ class AppVersion < ActiveRecord::Base
 					:short_version, 
 					:release_date,
 					:change_log, 
+					:ipa_path,
+					:dsym_path,
 					:icon_path, 
 					:itunes_artwork_path
 
