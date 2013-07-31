@@ -55,6 +55,11 @@ class UploadController < ApplicationController
 				})
 
 				# get info from Info.plist
+				if !File.exist?(plist_unzip_path)
+					flash[:notice] = nil
+					flash[:alert] = 'Invalide IPA file.'
+					return
+				end
 				parsed_hash = BinaryPlistHelper.hash_from_plist_file(plist_unzip_path)
 
 				# get bundle id

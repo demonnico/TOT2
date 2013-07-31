@@ -19,6 +19,10 @@ module FileSystemHelper
 			File.rename(source, destination)
 		end
 
+		def rm_file(file_path)
+			FileUtils.rm(file_path) if File.exist?(file_path)
+		end
+
 		#helper method, save io to file
 		def save_io_to_file(io, file_path)
 
