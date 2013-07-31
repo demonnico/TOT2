@@ -5,9 +5,12 @@ New TOT project, use rails. developing..................so don't download me rig
 
 Created in rails 3.2.13, tested in rails 3.2.13 and rails 4.0
 
-Use devise 3.0.0
-Use bootstrap
-Use sqlite 3
+Use [devise](https://github.com/plataformatec/devise) 3.0.0  
+Use [cancan](https://github.com/ryanb/cancan) 1.6.10  
+Use [rubyzip](https://github.com/rubyzip/rubyzip) 0.9.9  
+Use [CFPropertyList](https://github.com/ckruse/CFPropertyList) 2.2.0  
+Use [bootstrap](http://getbootstrap.com/)  
+Use sqlite 3  
 
 #How to use
 
@@ -34,10 +37,10 @@ A default admin account with email: ***tot@tot.com***, password: ***totadmin*** 
 
 Open [http://localhost:3000/admin](http://localhost:3000/admin)  
 Login use default admin account with email: ***tot@tot.com***, password: ***totadmin***.  
-Click '***Upload***' in the top of the admin page.  
+Click '**Upload**' in the top of the admin page.  
 Upload ipa and dSYM files.
 
-***We suggest register a new user and award permissions to users, instead of manage apps use default admin account.***  
+***We strongly suggest that register a new user and award permissions to users, instead of manage apps use default admin account.***  
 
 ####4.Download apps in iOS devices
 
