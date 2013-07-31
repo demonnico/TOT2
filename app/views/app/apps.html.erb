@@ -12,7 +12,9 @@
 				<th>Total Versions</th>
 				<th>Last version</th>
 				<th>Last Uploader</th>
+				<% if (can? :manage, @apps) %>
 				<th>Manage</th>
+				<% end %>
 			</tr>
 		</thead>
 
@@ -32,12 +34,14 @@
 					<%# last uploader %>
 					<td><%= mail_to lastVersion.uploader_email %></td>	
 					<%# manage %>
+					<% if (can? :manage, @apps) %>
 					<td>
 						<%= link_to 'Delete All Versions', '/admin/apps/' + app.id.to_s + '/delete', data: {
 			 					confirm: 'Are you sure? All versions of this app will be deleted.' 
 							}
 						%>
 					</td>
+					<% end %>
 				</tr>
 			<% end %>
 		</tbody>
