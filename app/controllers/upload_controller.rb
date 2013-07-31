@@ -56,6 +56,15 @@ class UploadController < ApplicationController
 
 				# get info from Info.plist
 				parsed_hash = BinaryPlistHelper.hash_from_plist_file(plist_unzip_path)
+
+				# get bundle id
+				bundle_id = BinaryPlistHelper.get_bundle_id(parsed_hash) # bundle id
+				if !bundle_id
+					flash[:notice] = nil
+					flash[:alert] = 'Invalide IPA file.'
+					return
+				end
+				
 				unzip_hash = {}
 
 				# Icon file name
@@ -75,14 +84,6 @@ class UploadController < ApplicationController
 				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, unzip_hash)
 
 				if File.exist?(temp_file_path_for_file_name("Icon@2x.png"))
-				end
-
-				# get bundle id
-				bundle_id = BinaryPlistHelper.get_bundle_id(parsed_hash) # bundle id
-				if !bundle_id
-					flash[:notice] = nil
-					flash[:alert] = 'Invalide IPA file.'
-					return
 				end
 
 				# version, short version, bundle id, display_name, change log
