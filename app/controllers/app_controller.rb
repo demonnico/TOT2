@@ -4,6 +4,7 @@ class AppController < ApplicationController
 	before_filter :authorize, :only => [:apps]
 
 	def apps
+		@apps = App.all
 	end
 
 	#############################################################################
