@@ -11,6 +11,7 @@ class CreateAppVersions < ActiveRecord::Migration
       t.string    :dsym_path
       t.string    :icon_path
       t.string    :itunes_artwork_path
+      t.string    :uploader_email,            :null => false, :default => "unknown email"
 
       t.integer   :app_id,                    :null => false #foreign key
 

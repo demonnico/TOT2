@@ -155,7 +155,8 @@ class UploadController < ApplicationController
 						:ipa_path => ipa_relative_storage_path,
 						:dsym_path => dsym_relative_storage_path,
 						:icon_path => icon_relative_storage_path, 
-						:itunes_artwork_path => itunes_artwork_relative_storage_path
+						:itunes_artwork_path => itunes_artwork_relative_storage_path,
+						:uploader_email => current_user.email
 					)
 				uploaded_app.app_versions << uploaded_version
 				uploaded_app.last_version += 1

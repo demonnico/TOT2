@@ -9,6 +9,7 @@ class AppVersion < ActiveRecord::Base
 					:ipa_path,
 					:dsym_path,
 					:icon_path, 
-					:itunes_artwork_path
+					:itunes_artwork_path,
+					:uploader_email
 
 end
