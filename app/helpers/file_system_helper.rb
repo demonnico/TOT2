@@ -14,9 +14,9 @@ module FileSystemHelper
 		end
 
 		def mv_file(source, destination)
-			File.rm(destination)
+			FileUtils.rm(destination) if File.exist?(destination)
 			FileSystemHelper.make_dir_at_path(destination)
-			File.mv(source, destination, :force)
+			File.rename(source, destination)
 		end
 
 		#helper method, save io to file
