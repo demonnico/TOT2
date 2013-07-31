@@ -113,6 +113,8 @@ class UploadController < ApplicationController
 						:short_version => short_version_string, 
 						:release_date => DateTime.now,
 						:change_log => change_log, 
+						:ipa_path => "ipa",
+						:dsym_path => "dsym",
 						:icon_path => "Icon", 
 						:itunes_artwork_path => "iTunesArtwork"
 					)
