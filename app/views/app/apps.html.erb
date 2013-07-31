@@ -1,40 +1,45 @@
 <h2>Apps</h2>
 
-<table class="table table-bordered table-striped">
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Bundle ID</th>
-			<th>Total Versions</th>
-			<th>Last version</th>
-			<th>Last Uploader</th>
-			<th>Manage</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<% @apps.each do |app| %>
+<% if @apps.count == 0 %>
+	<h4>No app available.</h4>
+	<h4>Please upload new apps in <%= link_to "Upload", "/admin/upload"%> page first.<h4>
+<% else %>
+	<table class="table table-bordered table-striped">
+		<thead>
 			<tr>
-				<% lastVersion = app.app_versions.last %>
-				<%# name %>
-				<td><%= lastVersion ? lastVersion.app_name : "unavailable" %></td>
-				<%# bundle id %>
-				<td><%= app.bundle_id %></td>	
-				<%# total versions %>
-				<td><%= link_to app.app_versions.count.to_s + ' versions', '/admin/apps/' + app.id.to_s + '/versions' %></td>
-				<%# last version %>
-				<% lastVersionString = lastVersion.version.to_s + '(' + lastVersion.short_version.to_s + ')' + ' #' + lastVersion.beta_version.to_s %>
-				<td><%= link_to lastVersionString, '/admin/appversion/' + app.id.to_s %></td>
-				<%# last uploader %>
-				<td><%= mail_to lastVersion.uploader_email %></td>	
-				<%# manage %>
-				<td>
-					<%= link_to 'Delete All Versions', '/admin/apps/' + app.id.to_s + '/delete', data: {
-		 					confirm: 'Are you sure? All versions of this app will be deleted.' 
-						}
-					%>
-				</td>
+				<th>Name</th>
+				<th>Bundle ID</th>
+				<th>Total Versions</th>
+				<th>Last version</th>
+				<th>Last Uploader</th>
+				<th>Manage</th>
 			</tr>
-		<% end %>
-	</tbody>
-</table>
+		</thead>
+
+		<tbody>
+			<% @apps.each do |app| %>
+				<tr>
+					<% lastVersion = app.app_versions.last %>
+					<%# name %>
+					<td><%= lastVersion ? lastVersion.app_name : "unavailable" %></td>
+					<%# bundle id %>
+					<td><%= app.bundle_id %></td>	
+					<%# total versions %>
+					<td><%= link_to app.app_versions.count.to_s + ' versions', '/admin/apps/' + app.id.to_s + '/versions' %></td>
+					<%# last version %>
+					<% lastVersionString = lastVersion.version.to_s + '(' + lastVersion.short_version.to_s + ')' + ' #' + lastVersion.beta_version.to_s %>
+					<td><%= link_to lastVersionString, '/admin/appversion/' + app.id.to_s %></td>
+					<%# last uploader %>
+					<td><%= mail_to lastVersion.uploader_email %></td>	
+					<%# manage %>
+					<td>
+						<%= link_to 'Delete All Versions', '/admin/apps/' + app.id.to_s + '/delete', data: {
+			 					confirm: 'Are you sure? All versions of this app will be deleted.' 
+							}
+						%>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
