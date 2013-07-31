@@ -76,7 +76,12 @@ is_admin: true
 
 				<%# Delete Link %>
 				<% if current_user != user %>
-					<td><a href='/admin/users/<%= user.id %>/delete'>Delete</a></td>
+					<td>
+						<%= link_to 'Delete', '/admin/users/' + user.id.to_s + '/delete', data: {
+		 					confirm: 'Are you sure? All versions of this app will be deleted.' 
+							}
+						%>
+					</td>
 				<% else %>
 					<td>Myself</td>
 				<% end %>
