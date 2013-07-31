@@ -13,6 +13,12 @@ module FileSystemHelper
 			end
 		end
 
+		def mv_file(source, destination)
+			File.rm(destination)
+			FileSystemHelper.make_dir_at_path(destination)
+			File.mv(source, destination, :force)
+		end
+
 		#helper method, save io to file
 		def save_io_to_file(io, file_path)
 
