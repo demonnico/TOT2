@@ -1,7 +1,7 @@
 class AppController < ApplicationController
 
 	layout '_navigation'
-	before_filter :view_authorize, :only => [:apps]
+	before_filter :view_authorize, :only => [:apps, :versions]
 	before_filter :authorize, :only => [:deleteapp]
 
 	def apps
@@ -16,6 +16,12 @@ class AppController < ApplicationController
 		end
 
 		redirect_to '/admin/apps'
+	end
+
+	def versions
+		appId = params[:app_id]
+		@app = App.find(appId)
+		@versions = @app.app_versions
 	end
 
 	#############################################################################
