@@ -65,6 +65,7 @@ class UploadController < ApplicationController
 					return
 				end
 				
+				# unzip icon files
 				unzip_hash = {}
 
 				# Icon file name
@@ -84,6 +85,7 @@ class UploadController < ApplicationController
 				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, unzip_hash)
 
 				if File.exist?(temp_file_path_for_file_name("Icon@2x.png"))
+					FileSystemHelper.mv_file(temp_file_path_for_file_name("Icon@2x.png"), storage_file_path("1", "2", "3"))
 				end
 
 				# version, short version, bundle id, display_name, change log
@@ -177,7 +179,12 @@ class UploadController < ApplicationController
 
 	# gem storage file path
 	def storage_file_path(bundle_id, beta_version, file_name)
-		ret_path = Rails.root.join('public', 'uploads', 'storage', bundle_id, beta_version, file_name)
+		ret_path = Rails.root.join(storage_file_relative_path(bundle_id, beta_version, file_name))
+		return ret_path
+	end
+
+	def storage_file_relative_path(bundle_id, beta_version, file_name)
+		ret_path = 'public/uploads/storage/' + bundle_id + '/' + beta_version + '/' + file_name
 		return ret_path
 	end
 
