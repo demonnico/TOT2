@@ -124,6 +124,19 @@ class UploadController < ApplicationController
 					FileSystemHelper.mv_file(itunes_artwork_temp_path, itunes_artwork_storage_path)
 				end
 
+				# store ipa
+				ipa_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "betatest.ipa")
+				ipa_storage_path = storage_file_path(bundle_id, beta_version_string, "betatest.ipa")
+				FileSystemHelper.mv_file(temp_file_path_for_ipa, ipa_storage_path)
+
+				# save dSYM to disk
+				dsym_relative_storage_path = nil
+				if uploaded_dSYM_io
+					dsym_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "dSYM.zip")
+					dsym_storage_path = storage_file_path(bundle_id, beta_version_string, "dSYM.zip")
+					FileSystemHelper.save_io_to_file(uploaded_dSYM_io, dsym_storage_path)
+				end
+
 				if(!uploaded_app) # if bundle id never uploaded, create a new one
 					uploaded_app = App.new(
 						:bundle_id => bundle_id,
@@ -139,8 +152,8 @@ class UploadController < ApplicationController
 						:short_version => short_version_string, 
 						:release_date => DateTime.now,
 						:change_log => change_log, 
-						:ipa_path => "ipa",
-						:dsym_path => "dsym",
+						:ipa_path => ipa_relative_storage_path,
+						:dsym_path => dsym_relative_storage_path,
 						:icon_path => icon_relative_storage_path, 
 						:itunes_artwork_path => itunes_artwork_relative_storage_path
 					)
@@ -149,11 +162,6 @@ class UploadController < ApplicationController
 				uploaded_app.save
 
 				@info = uploaded_app.app_versions
-
-				# save dSYM to disk
-				if uploaded_dSYM_io
-					FileSystemHelper.save_io_to_file(uploaded_dSYM_io, temp_file_path_for_dsym)
-				end
 			end
 
 			# notice user messages

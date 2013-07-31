@@ -8,7 +8,7 @@ class CreateAppVersions < ActiveRecord::Migration
       t.datetime  :release_date
       t.text      :change_log,                :null => false, :default => ""
       t.string    :ipa_path,                  :null => false
-      t.string    :dsym_path,                 :null => false
+      t.string    :dsym_path
       t.string    :icon_path
       t.string    :itunes_artwork_path
 
