@@ -39,7 +39,7 @@ class UserController < ApplicationController
 
 	# check access permission
 	def authorize
-		if current_user == nil || !(can? :manage, @user)
+		if current_user == nil || !(can? :manage, User)
 			flash[:notice] = "You don't have permission to access users page."
 			redirect_to '/admin'
 			return

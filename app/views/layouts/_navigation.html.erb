@@ -14,7 +14,7 @@
             <a class="brand" href="/">TOT2</a>
             <a class="brand" href="/admin">admin</a>
 
-             <% if can? :manage, @app %>
+             <% if can? :manage, App %>
                 <ul class="nav">
                     <li><p>&nbsp;&nbsp;&nbsp;&nbsp;</p></li>
                 </ul>
@@ -28,7 +28,7 @@
                 </ul>
             <% end %>
 
-             <% if can? :manage, @user %>
+             <% if can? :manage, User %>
                 <ul class="nav">
                     <li <%= "class=active" if controller_name == 'user' %>><a href="/admin/users">Users</a></li>
                 </ul>

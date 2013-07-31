@@ -193,7 +193,7 @@ class UploadController < ApplicationController
 
 	# check access permission
 	def authorize
-		if current_user == nil || !(can? :manage, @app)
+		if current_user == nil || !(can? :manage, App)
 			flash[:notice] = "You don't have permission to access upload page."
 			redirect_to '/admin'
 			return
