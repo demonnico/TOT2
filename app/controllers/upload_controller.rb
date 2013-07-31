@@ -70,23 +70,22 @@ class UploadController < ApplicationController
 
 				# Icon file name
 				icon_file_name = BinaryPlistHelper.get_icon_file_name(parsed_hash)
+				icon_temp_path = temp_file_path_for_file_name("Icon.png")
+				icon2x_temp_path = temp_file_path_for_file_name("Icon@2x.png")
+				itunes_artwork_temp_path = temp_file_path_for_file_name("iTunesArtwork.png")
 				if icon_file_name
-					unzip_hash[app_path + icon_file_name] = temp_file_path_for_file_name("Icon@2x.png")
+					unzip_hash[app_path + icon_file_name] = icon2x_temp_path
 				else
-					unzip_hash[app_path + "Icon@2x.png"] = temp_file_path_for_file_name("Icon@2x.png")
-					unzip_hash[app_path + "Icon.png"] = temp_file_path_for_file_name("Icon.png")
+					unzip_hash[app_path + "Icon@2x.png"] = icon2x_temp_path
+					unzip_hash[app_path + "Icon.png"] = icon_temp_path
 				end
 
 				# iTunesArtwork file name
 				itunes_artwork_file_name = BinaryPlistHelper.get_itunes_artwork_file_name(parsed_hash)
-				unzip_hash[app_path + itunes_artwork_file_name] = temp_file_path_for_file_name(itunes_artwork_file_name)
+				unzip_hash[app_path + itunes_artwork_file_name] = itunes_artwork_temp_path
 
 				# unzip icons
 				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, unzip_hash)
-
-				if File.exist?(temp_file_path_for_file_name("Icon@2x.png"))
-					FileSystemHelper.mv_file(temp_file_path_for_file_name("Icon@2x.png"), storage_file_path("1", "2", "3"))
-				end
 
 				# version, short version, bundle id, display_name, change log
 				version_string = BinaryPlistHelper.get_version_string(parsed_hash) # version string
@@ -101,6 +100,30 @@ class UploadController < ApplicationController
 
 				# query app
 				uploaded_app = App.where(:bundle_id => bundle_id).first
+				beta_version_string = (uploaded_app ? uploaded_app.last_version + 1 : 1).to_s
+
+				# store icon
+				icon_relative_storage_path = nil
+				icon_storage_path = nil
+				if File.exist?(icon2x_temp_path)
+					icon_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "Icon.png").to_s
+					icon_storage_path = storage_file_path(bundle_id, beta_version_string, "Icon.png")
+					FileSystemHelper.mv_file(icon2x_temp_path, icon_storage_path)
+				elsif File.exist?(icon_temp_path)
+					icon_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "Icon.png").to_s
+					icon_storage_path = storage_file_path(bundle_id, beta_version_string, "Icon.png")
+					FileSystemHelper.mv_file(icon_temp_path, icon_storage_path)
+				end
+
+				# store iTunesArtwork
+				itunes_artwork_relative_storage_path = nil
+				itunes_artwork_storage_path = nil
+				if File.exist?(itunes_artwork_temp_path)
+					itunes_artwork_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "iTunesArtwork.png")
+					itunes_artwork_storage_path = storage_file_path(bundle_id, beta_version_string, "iTunesArtwork.png")
+					FileSystemHelper.mv_file(itunes_artwork_temp_path, itunes_artwork_storage_path)
+				end
+
 				if(!uploaded_app) # if bundle id never uploaded, create a new one
 					uploaded_app = App.new(
 						:bundle_id => bundle_id,
@@ -118,8 +141,8 @@ class UploadController < ApplicationController
 						:change_log => change_log, 
 						:ipa_path => "ipa",
 						:dsym_path => "dsym",
-						:icon_path => "Icon", 
-						:itunes_artwork_path => "iTunesArtwork"
+						:icon_path => icon_relative_storage_path, 
+						:itunes_artwork_path => itunes_artwork_relative_storage_path
 					)
 				uploaded_app.app_versions << uploaded_version
 				uploaded_app.last_version += 1

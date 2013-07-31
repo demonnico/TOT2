@@ -41,9 +41,9 @@ module BinaryPlistHelper
 			return parsed_plist_hash["CFBundleIconFile"]
 		end
 
-		# get iTuneArtwork
+		# get iTunesArtwork
 		def get_itunes_artwork_file_name(parsed_plist_hash)
-			return 'iTuneArtwork'
+			return 'iTunesArtwork'
 		end
 
 		# get version string from hash
