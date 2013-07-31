@@ -21,13 +21,19 @@
 				<%# bundle id %>
 				<td><%= app.bundle_id %></td>	
 				<%# total versions %>
-				<td><%= app.app_versions.count %> versions totally</td>	
+				<td><%= link_to app.app_versions.count.to_s + ' versions', '/admin/apps/' + app.id.to_s + '/versions' %></td>
 				<%# last version %>
-				<td><%= lastVersion.version %>(<%= lastVersion.short_version %>) #<%=lastVersion.beta_version%></td>	
+				<% lastVersionString = lastVersion.version.to_s + '(' + lastVersion.short_version.to_s + ')' + ' #' + lastVersion.beta_version.to_s %>
+				<td><%= link_to lastVersionString, '/admin/appversion/' + app.id.to_s %></td>
 				<%# last uploader %>
-				<td><%= lastVersion.uploader_email %></td>	
+				<td><%= mail_to lastVersion.uploader_email %></td>	
 				<%# manage %>
-				<td>Edit | Delete</td>	
+				<td>
+					<%= link_to 'Delete All Versions', '/admin/apps/' + app.id.to_s + '/delete', data: {
+		 					confirm: 'Are you sure? All versions of this app will be deleted.' 
+						}
+					%>
+				</td>
 			</tr>
 		<% end %>
 	</tbody>

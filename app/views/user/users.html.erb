@@ -45,7 +45,7 @@ is_admin: true
 				<td><%= user.id %></td>	
 
 				<%# Mail %>
-				<td><a href="mailto:<%= user.email %>"><%=user.email%></a></td>
+				<td><%=mail_to user.email%></a></td>
 
 				<%# Role String %>
 				<td><%= roleString %></td>
