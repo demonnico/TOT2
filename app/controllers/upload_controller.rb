@@ -13,6 +13,7 @@ class UploadController < ApplicationController
 		# save files if ipa POSTed
 		if request.request_method == 'POST' # an upload performed with POST method
 
+			clean_temp_dir
 
 			# get io from posted params
 			uploaded_ipa_io = params[:ipa] # uploaded ipa file handle
@@ -170,11 +171,13 @@ class UploadController < ApplicationController
 				@info = uploaded_app.app_versions
 			end
 
+			clean_temp_dir
+
 			# notice user messages
 		    flash[:notice] = notice_string
 		    flash[:alert] = alert_string
 		    if alert_string == nil # upload successed, redirect to apps page
-		    	# redirect_to '/admin'
+		    	redirect_to '/admin'
 		    end
 		end
 	end
@@ -183,6 +186,10 @@ class UploadController < ApplicationController
 	# private methods
 
 	private	
+
+	def clean_temp_dir
+		FileSystemHelper.rm_file(temp_file_path_for_file_name)
+	end
 
 	# check access permission
 	def authorize
@@ -226,8 +233,12 @@ class UploadController < ApplicationController
 	end
 
 	# gen temp file path
-	def temp_file_path_for_file_name(file_name)
-		ret_path = Rails.root.join('public', 'uploads', 'temp', session[:session_id], file_name)
+	def temp_file_path_for_file_name(file_name = nil)
+		if !file_name
+			ret_path = Rails.root.join('public', 'uploads', 'temp', session[:session_id])
+		else
+			ret_path = Rails.root.join('public', 'uploads', 'temp', session[:session_id], file_name)
+		end
 		return ret_path
 	end
 

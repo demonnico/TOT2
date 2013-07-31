@@ -20,7 +20,7 @@ module FileSystemHelper
 		end
 
 		def rm_file(file_path)
-			FileUtils.rm(file_path) if File.exist?(file_path)
+			FileUtils.rm_rf(file_path) if File.exist?(file_path)
 		end
 
 		#helper method, save io to file
