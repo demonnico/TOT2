@@ -228,8 +228,4 @@ class UploadController < ApplicationController
 	def temp_file_path_for_ipa
 		return temp_file_path_for_file_name('temp_ipa.ipa')
 	end
-
-	def temp_file_path_for_dsym
-		return temp_file_path_for_file_name('temp_dsym.zip')
-	end
 end
