@@ -1,10 +1,20 @@
 class AppController < ApplicationController
 
 	layout '_navigation'
-	before_filter :authorize, :only => [:apps]
+	before_filter :authorize, :only => [:deleteapp]
 
 	def apps
 		@apps = App.all
+	end
+
+	def deleteapp
+		appId = params[:app_id]
+		app = App.find(appId)
+		if app
+			app.destroy
+		end
+
+		redirect_to '/admin/apps'
 	end
 
 	#############################################################################
@@ -14,8 +24,9 @@ class AppController < ApplicationController
 
 	# check access permission
 	def authorize
-		if current_user == nil
-			redirect_to '/users/sign_in'
+		if current_user == nil || !(can? :manage, @app)
+			flash[:notice] = "You don't have permission to manage app"
+			redirect_to '/admin'
 			return
 		end 
 	end
