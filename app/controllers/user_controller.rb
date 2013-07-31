@@ -1,7 +1,7 @@
 class UserController < ApplicationController
 
 	layout '_navigation'
-	before_filter :authorize, :only => [:users, :changerole]
+	before_filter :authorize, :only => [:users, :changerole, :delete]
 
 	def users
 		@users = User.all
