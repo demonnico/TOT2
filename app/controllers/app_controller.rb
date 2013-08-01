@@ -29,7 +29,7 @@ class AppController < ApplicationController
 			redirect_to '/admin/apps'
 			return
 		end
-		@versions = @app.app_versions
+		@versions = @app.app_versions.reverse
 	end
 
 	#############################################################################
