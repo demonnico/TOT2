@@ -10,9 +10,12 @@ class AppController < ApplicationController
 
 	def deleteapp
 		appId = params[:app_id]
-		app = App.find(appId)
+		app = App.find_by_id(appId)
 		if app
+			flash[:notice] = app.bundle_id + ' deleted.'
 			app.destroy
+		else
+			flash[:alert] = 'No app found with id: ' + appId
 		end
 
 		redirect_to '/admin/apps'
@@ -20,7 +23,12 @@ class AppController < ApplicationController
 
 	def versions
 		appId = params[:app_id]
-		@app = App.find(appId)
+		@app = App.find_by_id(appId)
+		if !@app
+			flash[:alert] = 'No app found with id: ' + appId
+			redirect_to '/admin/apps'
+			return
+		end
 		@versions = @app.app_versions
 	end
 
