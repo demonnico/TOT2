@@ -113,11 +113,11 @@ class UploadController < ApplicationController
 				icon_storage_path = nil
 				if File.exist?(icon2x_temp_path)
 					icon_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "Icon.png").to_s
-					icon_storage_path = storage_file_path(bundle_id, beta_version_string, "Icon.png")
+					icon_storage_path = full_path_with_relative_path(icon_relative_storage_path)
 					FileSystemHelper.mv_file(icon2x_temp_path, icon_storage_path)
 				elsif File.exist?(icon_temp_path)
 					icon_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "Icon.png").to_s
-					icon_storage_path = storage_file_path(bundle_id, beta_version_string, "Icon.png")
+					icon_storage_path = full_path_with_relative_path(icon_relative_storage_path)
 					FileSystemHelper.mv_file(icon_temp_path, icon_storage_path)
 				end
 
@@ -126,20 +126,20 @@ class UploadController < ApplicationController
 				itunes_artwork_storage_path = nil
 				if File.exist?(itunes_artwork_temp_path)
 					itunes_artwork_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "iTunesArtwork.png")
-					itunes_artwork_storage_path = storage_file_path(bundle_id, beta_version_string, "iTunesArtwork.png")
+					itunes_artwork_storage_path = full_path_with_relative_path(itunes_artwork_relative_storage_path)
 					FileSystemHelper.mv_file(itunes_artwork_temp_path, itunes_artwork_storage_path)
 				end
 
 				# store ipa
 				ipa_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "betatest.ipa")
-				ipa_storage_path = storage_file_path(bundle_id, beta_version_string, "betatest.ipa")
+				ipa_storage_path = full_path_with_relative_path(ipa_relative_storage_path)
 				FileSystemHelper.mv_file(temp_file_path_for_ipa, ipa_storage_path)
 
 				# save dSYM to disk
 				dsym_relative_storage_path = nil
 				if uploaded_dSYM_io
 					dsym_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "dSYM.zip")
-					dsym_storage_path = storage_file_path(bundle_id, beta_version_string, "dSYM.zip")
+					dsym_storage_path = full_path_with_relative_path(dsym_relative_storage_path)
 					FileSystemHelper.save_io_to_file(uploaded_dSYM_io, dsym_storage_path)
 				end
 
@@ -222,8 +222,8 @@ class UploadController < ApplicationController
 	end
 
 	# gem storage file path
-	def storage_file_path(bundle_id, beta_version, file_name)
-		ret_path = Rails.root.join(storage_file_relative_path(bundle_id, beta_version, file_name))
+	def full_path_with_relative_path(relative_path)
+		ret_path = FileSystemHelper.full_path_with_relative_path(relative_path)
 		return ret_path
 	end
 
