@@ -13,10 +13,12 @@ class UserController < ApplicationController
 		userId = params[:user_id]
 		role = params[:role]
 		
-		user = User.find(userId)
+		user = User.find_by_id(userId)
 		if user && user != current_user
 			user.role = role
 			user.save
+		else
+			flash[:alert] = 'no user found with id: ' + userId
 		end
 
 		redirect_to '/admin/users'
@@ -24,9 +26,12 @@ class UserController < ApplicationController
 
 	def delete
 		userId = params[:user_id]
-		user = User.find(userId)
+		user = User.find_by_id(userId)
 		if user && user != current_user
 			user.destroy
+			flash[:notice] = 'User ' + user.email + ' deleted.'
+		else
+			flash[:alert] = 'no user found with id: ' + userId
 		end
 
 		redirect_to '/admin/users'
