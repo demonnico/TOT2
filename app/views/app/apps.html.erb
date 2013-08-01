@@ -34,8 +34,7 @@
 
 					<%# last version %>
 					<% if lastVersion %>
-						<% lastVersionString = lastVersion.version.to_s + '(' + lastVersion.short_version.to_s + ')' + ' #' + lastVersion.beta_version.to_s %>
-						<td><%= link_to lastVersionString, '/admin/appversion/' + lastVersion.id.to_s %></td>
+						<td><%= link_to lastVersion.version_string, '/admin/appversion/' + lastVersion.id.to_s %></td>
 					<% else %>
 						<td>unavailable</td>
 					<% end %>

@@ -19,6 +19,10 @@ class AppVersion < ActiveRecord::Base
           :itunes_artwork_path,
           :uploader_email
 
+  def version_string
+    return version + '(' + short_version + ')' + ' #' + beta_version.to_s
+  end
+
   def delete_files
     bundle_id = app.bundle_id
     FileSystemHelper.rm_file(ipa_path)
