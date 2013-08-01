@@ -30,7 +30,7 @@
 					<td><%= link_to app.app_versions.count.to_s + ' versions', '/admin/apps/' + app.id.to_s + '/versions' %></td>
 					<%# last version %>
 					<% lastVersionString = lastVersion.version.to_s + '(' + lastVersion.short_version.to_s + ')' + ' #' + lastVersion.beta_version.to_s %>
-					<td><%= link_to lastVersionString, '/admin/appversion/' + app.id.to_s %></td>
+					<td><%= link_to lastVersionString, '/admin/appversion/' + lastVersion.id.to_s %></td>
 					<%# last uploader %>
 					<td><%= mail_to lastVersion.uploader_email %></td>	
 					<%# manage %>
