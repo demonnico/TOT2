@@ -14,6 +14,7 @@ TOT2::Application.routes.draw do
   match 'admin/apps', :to => 'app#apps'
   match 'admin/apps/:app_id', :to => 'app#deleteapp', via:[:delete]
   match 'admin/apps/:app_id/versions', :to => 'app#versions'
+  match 'admin/appversion/:version_id', :to => 'app#version_detail', via:[:get]
   match 'admin/appversion/:version_id', :to => 'app#deleteversion', via:[:delete]
   
   # upload

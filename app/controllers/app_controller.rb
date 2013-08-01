@@ -35,10 +35,20 @@ class AppController < ApplicationController
 	def deleteversion
 		version_id = params[:version_id]
 		app_version = AppVersion.find_by_id(version_id)
-		app_id = app_version.app.id
 		if app_version
+			app_id = app_version.app.id
 			app_version.destroy
 			redirect_to '/admin/apps/' + app_id.to_s + '/versions'
+		end
+	end
+
+	def version_detail
+		version_id = params[:version_id]
+		@app_version = AppVersion.find_by_id(version_id)
+		if !@app_version
+			flash[:alert] = 'App version with id ' + version_id + ' not found.'
+			redirect_to '/admin/apps'
+			return
 		end
 	end
 
