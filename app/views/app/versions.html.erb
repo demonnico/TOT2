@@ -1,3 +1,46 @@
-<h2>Versions</h2>
+<h2>Versions of <%= @app.bundle_id %></h2>
 
-<%= @versions %>
+<% if @versions.count == 0 %>
+	<h4>No version available.</h4>
+	<h4>Please upload new apps in <%= link_to "Upload", "/admin/upload"%> page first.<h4>
+<% else %>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>App Name</th>
+				<th>Version</th>
+				<th>Release Date</th>
+				<th>Uploader</th>
+				<th style="min-width:200px;max-width:300px">Change Log</th>
+				<th>Download</th>
+				<% if (can? :manage, App) %>
+				<th>Manage</th>
+				<% elsif (can? :read, App) %>
+				<th>View</th>
+				<% end %>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @versions.each do |version| %>
+				<tr>
+					<td><%= version.app_name %></td>
+					<td><%= '#' + version.beta_version.to_s + ' ' + version.version + '(' + version.short_version + ')' %></td>
+					<td><%= version.release_date.strftime('%m/%d/%Y %H:%M') %></td>
+					<td><%= mail_to version.uploader_email %></td>
+					<td style="min-width:200px;max-width:300px">
+						<% display_change_log = version.change_log %>
+						<% display_change_log = display_change_log[0, 45] + "..." if display_change_log.length > 45 %>
+						<%= display_change_log %>
+					</td>
+					<td>ipa | dSYM</td>
+					<% if (can? :manage, App) %>
+					<td><%= link_to 'Edit', '/admin/appversion/' + version.id.to_s %> | <%= link_to 'Delete', '/admin/appversion/' + version.id.to_s + '/delete'%></td>
+					<% elsif (can? :read, App) %>
+					<td><%= link_to 'View', '/admin/appversion/' + version.id.to_s %></td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
