@@ -77,9 +77,9 @@ is_admin: true
 				<%# Delete Link %>
 				<% if current_user != user %>
 					<td>
-						<%= link_to 'Delete', '/admin/users/' + user.id.to_s + '/delete', data: {
-		 					confirm: 'Are you sure? All versions of this app will be deleted.' 
-							}
+						<%= link_to 'Delete', '/admin/users/' + user.id.to_s,
+							:method => :delete,
+		 					confirm: 'Are you sure to delete User ' + user.email + '?' 
 						%>
 					</td>
 				<% else %>
