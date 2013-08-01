@@ -50,9 +50,9 @@
 					<%# manage %>
 					<% if (can? :manage, App) %>
 					<td>
-						<%= link_to 'Delete All Versions', '/admin/apps/' + app.id.to_s + '/delete', data: {
-			 					confirm: 'Are you sure? All versions of this app will be deleted.' 
-							}
+						<%= link_to 'Delete All Versions', '/admin/apps/' + app.id.to_s,
+							:method => :delete,
+		 					confirm: 'Are you sure? All versions of '+ app.bundle_id + ' will be deleted.' 
 						%>
 					</td>
 					<% end %>

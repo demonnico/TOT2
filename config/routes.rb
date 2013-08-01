@@ -12,7 +12,7 @@ TOT2::Application.routes.draw do
   match 'admin', :to => 'app#apps'
   match 'admin/index', :to => 'app#apps'
   match 'admin/apps', :to => 'app#apps'
-  match 'admin/apps/:app_id/delete', :to => 'app#deleteapp'
+  match 'admin/apps/:app_id', :to => 'app#deleteapp', via:[:delete]
   match 'admin/apps/:app_id/versions', :to => 'app#versions'
   match 'admin/appversion/:version_id', :to => 'app#deleteversion', via:[:delete]
   
