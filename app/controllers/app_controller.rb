@@ -2,7 +2,7 @@ class AppController < ApplicationController
 
 	layout '_navigation'
 	before_filter :view_authorize, :only => [:apps, :versions]
-	before_filter :authorize, :only => [:deleteapp]
+	before_filter :authorize, :only => [:deleteapp, :deleteversion]
 
 	def apps
 		@apps = App.all
@@ -30,6 +30,16 @@ class AppController < ApplicationController
 			return
 		end
 		@versions = @app.app_versions.reverse
+	end
+
+	def deleteversion
+		version_id = params[:version_id]
+		app_version = AppVersion.find_by_id(version_id)
+		app_id = app_version.app.id
+		if app_version
+			app_version.destroy
+			redirect_to '/admin/apps/' + app_id.to_s + '/versions'
+		end
 	end
 
 	#############################################################################

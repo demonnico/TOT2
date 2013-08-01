@@ -41,7 +41,10 @@
 					</td>
 					<% if (can? :manage, App) %>
 						<td><%= link_to 'Edit', '/admin/appversion/' + version.id.to_s %> |
-							<%= link_to 'Delete', '/admin/appversion/' + version.id.to_s + '/delete'%>
+							<%= link_to 'Delete', '/admin/appversion/' + version.id.to_s, 
+								:method => :delete,
+								:confirm => 'Are you sure to delete ' + version.app_name + '#' + version.beta_version.to_s + '?'
+							%>
 						</td>
 					<% elsif (can? :read, App) %>
 						<td><%= link_to 'View', '/admin/appversion/' + version.id.to_s %></td>
