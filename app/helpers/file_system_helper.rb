@@ -5,8 +5,12 @@ module FileSystemHelper
 	#Class Methods
 	class << self 
 		# helper method, generate storage dir for icon, iTunesArtwork, ipa and dSYM
-		def storage_path(bundle_id, beta_version, file_name = '')
-			ret_path = 'public/uploads/storage/' + bundle_id + '/' + beta_version + '/' + file_name
+		def storage_path(bundle_id, beta_version = '', file_name = '')
+			if beta_version
+				ret_path = 'public/uploads/storage/' + bundle_id + '/' + beta_version + '/' + file_name
+			else
+				ret_path = 'public/uploads/storage/' + bundle_id + '/'
+			end
 			return ret_path
 		end
 
