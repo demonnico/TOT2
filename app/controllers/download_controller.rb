@@ -16,6 +16,13 @@ class DownloadController < ApplicationController
   end
 
   def downdsym
+    version_id = params[:version_id]
+    if version_id == nil
+      redirect_to '/'
+    end
+    app_version = AppVersion.find_by_id(version_id)
+    ipa_path = app_version.dsym_path
+    send_file ipa_path
   end
 
   def authorize
