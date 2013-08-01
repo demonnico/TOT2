@@ -218,8 +218,7 @@ class UploadController < ApplicationController
 
 	# gem storage file path
 	def storage_file_relative_path(bundle_id, beta_version, file_name)
-		ret_path = 'public/uploads/storage/' + bundle_id + '/' + beta_version + '/' + file_name
-		return ret_path
+		return FileSystemHelper.storage_path(bundle_id, beta_version, file_name)
 	end
 
 	# gen temp file path
