@@ -22,17 +22,31 @@
 			<% @apps.each do |app| %>
 				<tr>
 					<% lastVersion = app.app_versions.last %>
+
 					<%# name %>
 					<td><%= lastVersion ? lastVersion.app_name : "unavailable" %></td>
+
 					<%# bundle id %>
 					<td><%= app.bundle_id %></td>	
+
 					<%# total versions %>
 					<td><%= link_to app.app_versions.count.to_s + ' versions', '/admin/apps/' + app.id.to_s + '/versions' %></td>
+
 					<%# last version %>
-					<% lastVersionString = lastVersion.version.to_s + '(' + lastVersion.short_version.to_s + ')' + ' #' + lastVersion.beta_version.to_s %>
-					<td><%= link_to lastVersionString, '/admin/appversion/' + lastVersion.id.to_s %></td>
+					<% if lastVersion %>
+						<% lastVersionString = lastVersion.version.to_s + '(' + lastVersion.short_version.to_s + ')' + ' #' + lastVersion.beta_version.to_s %>
+						<td><%= link_to lastVersionString, '/admin/appversion/' + lastVersion.id.to_s %></td>
+					<% else %>
+						<td>unavailable</td>
+					<% end %>
+
 					<%# last uploader %>
-					<td><%= mail_to lastVersion.uploader_email %></td>	
+					<% if lastVersion %>
+						<td><%= mail_to lastVersion.uploader_email %></td>
+					<% else %>
+						<td>unavailable</td>
+					<% end %>
+
 					<%# manage %>
 					<% if (can? :manage, App) %>
 					<td>
