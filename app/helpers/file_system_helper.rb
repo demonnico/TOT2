@@ -31,6 +31,7 @@ module FileSystemHelper
 
 		# helper method, remove file
 		def rm_file(file_path)
+			return if !file_path
 			FileUtils.rm_rf(file_path) if File.exist?(file_path)
 		end
 
