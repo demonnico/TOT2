@@ -2,7 +2,8 @@ class AppVersion < ActiveRecord::Base
 
   require 'file_system_helper'
 
-  before_destroy :delete_files
+  before_destroy  :delete_files
+  after_destroy   :check_if_need_delete_app
 
   belongs_to :app
 
@@ -25,6 +26,10 @@ class AppVersion < ActiveRecord::Base
     FileSystemHelper.rm_file(icon_path)
     FileSystemHelper.rm_file(itunes_artwork_path)
     FileSystemHelper.rm_file(FileSystemHelper.storage_path(bundle_id, beta_version.to_s))
+  end
+
+  def check_if_need_delete_app
+    app.destroy if app.app_versions.count == 0
   end
 
 end
