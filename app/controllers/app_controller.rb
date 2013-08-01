@@ -25,7 +25,7 @@ class AppController < ApplicationController
 		appId = params[:app_id]
 		@app = App.find_by_id(appId)
 		if !@app
-			flash[:alert] = 'No app found with id: ' + appId
+			flash[:notice] = 'All this app\'s versions have been deleted. App id: ' + appId
 			redirect_to '/admin/apps'
 			return
 		end
