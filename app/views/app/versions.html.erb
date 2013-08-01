@@ -33,11 +33,18 @@
 						<% display_change_log = display_change_log[0, 45] + "..." if display_change_log.length > 45 %>
 						<%= display_change_log %>
 					</td>
-					<td>ipa | dSYM</td>
+					<td>
+						<%= link_to 'ipa', version.ipa_path %>
+						<% if version.dsym_path %>
+						| <%= link_to 'dSYM', version.dsym_path %>
+						<% end %>
+					</td>
 					<% if (can? :manage, App) %>
-					<td><%= link_to 'Edit', '/admin/appversion/' + version.id.to_s %> | <%= link_to 'Delete', '/admin/appversion/' + version.id.to_s + '/delete'%></td>
+						<td><%= link_to 'Edit', '/admin/appversion/' + version.id.to_s %> |
+							<%= link_to 'Delete', '/admin/appversion/' + version.id.to_s + '/delete'%>
+						</td>
 					<% elsif (can? :read, App) %>
-					<td><%= link_to 'View', '/admin/appversion/' + version.id.to_s %></td>
+						<td><%= link_to 'View', '/admin/appversion/' + version.id.to_s %></td>
 					<% end %>
 				</tr>
 			<% end %>
