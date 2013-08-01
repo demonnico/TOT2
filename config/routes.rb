@@ -4,6 +4,8 @@ TOT2::Application.routes.draw do
   # download
   root :to => 'download#index'
   get "download/index"
+  match 'download/ipa/:version_id', :to => 'download#downipa'
+
 
   # app admin
   match 'admin', :to => 'app#apps'

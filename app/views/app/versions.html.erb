@@ -34,7 +34,7 @@
 						<%= display_change_log %>
 					</td>
 					<td>
-						<%= link_to 'ipa', version.ipa_path %>
+						<%= link_to 'ipa', '/download/ipa/' + version.id.to_s %>
 						<% if version.dsym_path %>
 						| <%= link_to 'dSYM', version.dsym_path %>
 						<% end %>
