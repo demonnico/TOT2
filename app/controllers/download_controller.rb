@@ -12,7 +12,7 @@ class DownloadController < ApplicationController
     end
     app_version = AppVersion.find_by_id(version_id)
     ipa_path = app_version.ipa_path
-    send_file ipa_path
+    send_file ipa_path, filename: app_version.app_name + app_version.version + '_#' + app_version.beta_version.to_s + '.ipa'
   end
 
   def downdsym
@@ -21,8 +21,8 @@ class DownloadController < ApplicationController
       redirect_to '/'
     end
     app_version = AppVersion.find_by_id(version_id)
-    ipa_path = app_version.dsym_path
-    send_file ipa_path
+    dsym_path = app_version.dsym_path
+    send_file dsym_path, filename: app_version.app_name + app_version.version + '_#' + app_version.beta_version.to_s + '_dSYM.zip'
   end
 
   def authorize
