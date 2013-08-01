@@ -4,15 +4,6 @@ module FileSystemHelper
 
 	#Class Methods
 	class << self 
-
-		# helper method, get full path with relative path
-		def full_path_with_relative_path(relative_path = "")
-			if !relative_path
-				return Rails.root
-			end
-			return Rails.root.join(relative_path)
-		end
-
 		# helper method, create dir if it doesn't exist
 		def make_dir_at_path(string)
 			dir = File.dirname(string)
