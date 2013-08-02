@@ -13,12 +13,9 @@
     <tr>
       <th>Icon</th>
       <td>
-
         <div class="col-lg-3">
           <a href="#" class="thumbnail">
-            <%= image_tag @app_version.icon_path, :class => "img_preview" %>
-
-            <img width="114" height="114" src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" alt="Icon" title="Icon">
+            <%= image_tag root_url + 'download/icon/' + @app_version.id.to_s %>
           </a>
         </div>
       </td>
