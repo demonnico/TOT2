@@ -5,6 +5,21 @@ class DownloadController < ApplicationController
   def index
   end
 
+  def downimage
+    version_id = params[:version_id]
+    if version_id == nil
+      send_data(nil, :filename=>'icon.png', :type=>'image/png', :disposition => "inline")
+    end
+    app_version = AppVersion.find_by_id(version_id)
+    if !app_version
+      send_data(nil, :filename=>'icon.png', :type=>'image/png', :disposition => "inline")
+    else
+      icon_path = app_version.icon_path || app_version.itunes_artwork_path
+      data=File.new(icon_path, "rb").read
+      send_data(data, :filename=>'icon.png', :type=>'image/png', :disposition => "inline")  
+    end
+  end
+
   def downipa
     version_id = params[:version_id]
     if version_id == nil
