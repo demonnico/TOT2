@@ -48,7 +48,12 @@
     <%# download %>
     <tr>
       <th>Download</th>
-      <td><%= @app_version.change_log %></td>
+      <td>
+          <%= link_to 'ipa', '/download/ipa/' + @app_version.id.to_s %>
+          <% if @app_version.dsym_path %>
+          | <%= link_to 'dSYM', '/download/dsym/' + @app_version.id.to_s %>
+          <% end %>
+      </td>
     </tr>
 
   </tbody>
