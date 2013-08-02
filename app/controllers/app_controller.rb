@@ -50,6 +50,12 @@ class AppController < ApplicationController
 			redirect_to '/admin/apps'
 			return
 		end
+
+		if (can? :manage, App)
+			render 'edit_version'
+		elsif (can? :read, App)
+			render 'version_detail'
+		end 
 	end
 
 	#############################################################################

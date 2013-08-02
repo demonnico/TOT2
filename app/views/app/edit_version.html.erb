@@ -1,0 +1,60 @@
+<h2>Version of <%= @app_version.app_name + ' ' + @app_version.version_string %></h2>
+
+<table class="table table-bordered table-striped">
+  <tbody>
+
+    <%# name %>
+    <tr>
+      <th>Name</th>
+      <td><%= @app_version.app_name %></td>
+    </tr>
+
+    <%# Icon %>
+    <tr>
+      <th>Icon</th>
+      <td>
+        <div class="col-lg-3">
+          <a href="#" class="thumbnail">
+            <%= image_tag root_url + 'download/icon/' + @app_version.id.to_s %>
+          </a>
+        </div>
+      </td>
+    </tr>
+
+    <%# beta version %>
+    <tr>
+      <th>Version</th>
+      <td><%= @app_version.version_string %></td>
+    </tr>
+
+    <%# uploader %>
+    <tr>
+      <th>Uploader</th>
+      <td><%= mail_to @app_version.uploader_email %></td>
+    </tr>
+
+    <%# release date %>
+    <tr>
+      <th>Release Date</th>
+      <td><%= @app_version.release_date.to_s %></td>
+    </tr>
+
+    <%# change log %>
+    <tr>
+      <th>Change Log</th>
+      <td><%= @app_version.change_log %></td>
+    </tr>
+
+    <%# download %>
+    <tr>
+      <th>Download</th>
+      <td>
+          <%= link_to 'ipa', '/download/ipa/' + @app_version.id.to_s %>
+          <% if @app_version.dsym_path %>
+          | <%= link_to 'dSYM', '/download/dsym/' + @app_version.id.to_s %>
+          <% end %>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
