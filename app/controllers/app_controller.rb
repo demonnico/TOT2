@@ -2,7 +2,7 @@ class AppController < ApplicationController
 
 	layout '_navigation'
 	before_filter :view_authorize, :only => [:apps, :versions]
-	before_filter :authorize, :only => [:deleteapp, :deleteversion]
+	before_filter :authorize, :only => [:deleteapp, :deleteversion, :edit_detail]
 
 	def apps
 		@apps = App.all
@@ -56,6 +56,18 @@ class AppController < ApplicationController
 		elsif (can? :read, App)
 			render 'version_detail'
 		end 
+	end
+
+	def edit_detail
+		version_id = params[:version_id]
+		@app_version = AppVersion.find_by_id(version_id)
+		if !@app_version
+			flash[:alert] = 'App version with id ' + version_id + ' not found.'
+			redirect_to '/admin/apps'
+			return
+		end
+
+		render 'edit_version'
 	end
 
 	#############################################################################
