@@ -1,1 +1,58 @@
 <h2>Version of <%= @app_version.app_name + ' ' + @app_version.version_string %></h2>
+
+<table class="table table-bordered table-striped">
+  <tbody>
+
+    <%# name %>
+    <tr>
+      <th>Name</th>
+      <td><%= @app_version.app_name %></td>
+    </tr>
+
+    <%# Icon %>
+    <tr>
+      <th>Icon</th>
+      <td>
+
+        <div class="col-lg-3">
+          <a href="#" class="thumbnail">
+            <%= image_tag @app_version.icon_path, :class => "img_preview" %>
+
+            <img width="114" height="114" src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" alt="Icon" title="Icon">
+          </a>
+        </div>
+      </td>
+    </tr>
+
+    <%# beta version %>
+    <tr>
+      <th>Version</th>
+      <td><%= @app_version.version_string %></td>
+    </tr>
+
+    <%# uploader %>
+    <tr>
+      <th>Uploader</th>
+      <td><%= mail_to @app_version.uploader_email %></td>
+    </tr>
+
+    <%# release date %>
+    <tr>
+      <th>Release Date</th>
+      <td><%= @app_version.release_date.to_s %></td>
+    </tr>
+
+    <%# change log %>
+    <tr>
+      <th>Change Log</th>
+      <td><%= @app_version.change_log %></td>
+    </tr>
+
+    <%# download %>
+    <tr>
+      <th>Download</th>
+      <td><%= @app_version.change_log %></td>
+    </tr>
+
+  </tbody>
+</table>
