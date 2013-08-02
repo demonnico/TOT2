@@ -1,5 +1,8 @@
 <h2>Version of <%= @app_version.app_name + ' ' + @app_version.version_string %></h2>
 
+
+<%= form_for :app_version, url: '/admin/appversion/' + @app_version.id.to_s, :html => { :multipart => true } do |f| %>
+
 <table class="table table-bordered table-striped">
   <tbody>
 
@@ -14,7 +17,7 @@
       <th>Icon</th>
       <td>
         <div class="col-lg-3">
-          <a href="#" class="thumbnail">
+          <a href="" class="thumbnail">
             <%= image_tag root_url + 'download/icon/' + @app_version.id.to_s %>
           </a>
         </div>
@@ -42,7 +45,7 @@
     <%# change log %>
     <tr>
       <th>Change Log</th>
-      <td><%= @app_version.change_log %></td>
+      <td><%= f.text_area :change_log, :rows => 10, :size => "24x6" %></td>
     </tr>
 
     <%# download %>
@@ -56,5 +59,14 @@
       </td>
     </tr>
 
+    <%# update dSYM %>
+    <tr>
+      <th>Update dSYM</th>
+      <td><%= file_field_tag 'dsym' %></td>
+    </tr>
   </tbody>
 </table>
+  <p>
+    <%= f.submit "Confirm Change" %>
+  </p>
+<% end %>
