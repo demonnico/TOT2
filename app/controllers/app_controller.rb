@@ -67,6 +67,22 @@ class AppController < ApplicationController
 			return
 		end
 
+		post_hash = params[:app_version]
+		new_change_log = post_hash["change_log"] if post_hash
+		if new_change_log
+			@app_version.change_log = new_change_log
+			@app_version.save
+		end
+
+		uploaded_dSYM_io = params[:dsym]
+		if uploaded_dSYM_io
+			if !dSYM_io_type_available?(uploaded_dSYM_io)
+				notice_string = nil
+				alert_string = "Please choose a zip file as dSYM"
+			else 
+			end
+		end
+
 		render 'edit_version'
 	end
 
@@ -94,5 +110,15 @@ class AppController < ApplicationController
 			redirect_to '/admin'
 			return
 		end 
+	end
+
+	def dSYM_io_type_available?(io)
+		if io == nil
+			return false
+		elsif io.content_type != "application/zip" || File.extname(io.original_filename).downcase != ".zip"
+			return false
+		end
+
+		return true
 	end
 end
