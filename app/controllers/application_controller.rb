@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
 		#request.referrer #Keeping user on the same page after signing out
 		"/admin"
 	end
+
+	def not_found
+	  	raise ActionController::RoutingError.new('Not Found')
+	end
 end
