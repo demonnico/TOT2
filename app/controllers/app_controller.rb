@@ -83,6 +83,8 @@ class AppController < ApplicationController
 				notice_string = nil
 				alert_string = "Please choose a zip file as dSYM"
 			else 
+				FileSystemHelper.rm_file @app_version.dsym_path if @app_version.dsym_path
+
 				dsym_relative_storage_path = FileSystemHelper.storage_path(@app_version.app.bundle_id, @app_version.beta_version.to_s, "dSYM.zip")
 				FileSystemHelper.save_io_to_file(uploaded_dSYM_io, dsym_relative_storage_path)
 				@app_version.dsym_path = dsym_relative_storage_path
