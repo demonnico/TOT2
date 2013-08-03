@@ -1,4 +1,4 @@
-<h2>Version of <%= @app_version.app_name + ' ' + @app_version.version_string %></h2>
+<h3>Version of <%= @app_version.app_name + ' ' + @app_version.version_string %></h3>
 
 
 <%= form_for :app_version, url: '/admin/appversion/' + @app_version.id.to_s, :html => { :multipart => true } do |f| %>
