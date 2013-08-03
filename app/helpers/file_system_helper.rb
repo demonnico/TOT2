@@ -52,9 +52,12 @@ module FileSystemHelper
 
 		# find zip/Payload/*.app/ from zip file
 		def find_app_path_from_zip_file(zip_file_path)
-			first_file_name = Zip::ZipFile.open(zip_file_path).first.name
-			matched_name = /Payload\/\w+\.app\//.match(first_file_name)
-			matched_name.to_s
+			Zip::ZipFile.open(zip_file_path) do |zipfile|
+			zipfile.each { |zipentry|
+				matched_name = /Payload\/\w+\.app\//.match(zipentry.name)
+				return matched_name.to_s if matched_name
+			}
+			end
 		end
 
 		# test method
