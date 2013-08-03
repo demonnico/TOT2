@@ -57,6 +57,19 @@ module FileSystemHelper
 			matched_name.to_s
 		end
 
+		# test method
+		# zip entry list
+		def zip_entry_list(zip_file_path)
+			entry_list = []
+			Zip::ZipFile.open(zip_file_path) do |zipfile|
+			zipfile.each { |zipentry|
+				zip_path = zipentry.name # path for file to unzip in zip file
+				entry_list << zip_path
+			}
+			end
+			return entry_list
+		end
+
 		# helper method, zip a zipfile's subfile to destination path
 		# params:
 		# 	zip_file_path : file to unzip
