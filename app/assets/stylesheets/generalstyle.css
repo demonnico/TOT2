@@ -1,0 +1,92 @@
+/*背景*/
+body
+{
+	background:#283b4c;
+	background-image:url(../Images/Background.png);
+	background-repeat:repeat;
+	margin:0;
+	padding:0;
+	font-family:AxelRegular,helvetica,arial,sans-serif;
+	font-size:16px;
+	-webkit-background-size: 10px 10px;
+}
+
+@media all and (-webkit-min-device-pixel-ratio:2)
+{
+	body
+	{
+		background:#283b4c;
+		background-image:url(../Images/Background@2x.png);
+		background-repeat:repeat;
+		margin:0;
+		padding:0;
+		font-family:AxelRegular,helvetica,arial,sans-serif;
+		font-size:16px;
+	}
+}
+
+
+/*标题Label默认属性*/
+h1 {margin:0; padding:0; font-size:13px;text-align:center; color: #aaa}
+/*普通Label默认属性*/
+p {font-size:13px;}
+
+a:link{text-decoration:none}
+a:visited{text-decoration:none}
+a:hover {text-decoration:none}
+
+/*顶部NavigationBar布局*/
+.navigationBar {height:44px; background-image:url(../Images/HeaderTitle.png);  margin:0 auto;}
+/*顶部Title*/
+.headerTitle {padding-top: 11px;font-size:16px;margin: 0 auto; overflow: hidden; width: 196px; font-family:AxelRegular; color:#252525; text-shadow: 0px 1px 0px #fff;}
+
+/*cell布局*/
+.cell {background:#f3f3f3; height: 89px; border-top:0px solid #fff; border-bottom:1px solid #d3d3d3; margin-top: 0px}
+.cell a {text-decoration:none; height:89px; font-size:15px; display:block; color:#000;}
+
+.detailCell {background:#f3f3f3; border-top:0px solid #fff; border-bottom:0px solid #d3d3d3; margin-top: 0px}
+.detailCell a {text-decoration:none; height:89px; font-size:15px; display:block; color:#000;}
+
+/*Icon Container*/
+.iconContainer {padding-left: 16px; padding-top: 16px; width: 57px; height: 57px}
+/*Icon*/
+.iconImage {width: 57px; height: 57px}
+/*Icon Rounded Rect*/
+.iconRoundedRectImage {margin-left: 0px; margin-top: -57px; width: 57px; height: 57px}
+/*Detail Button*/
+.detailButton {width: 9px; height: 15px; margin-top: -36px; position:absolute;right:10px;}
+.horizontalDetailButton {width: 15px; height: 9px; margin-top: -32px; position:absolute;right:10px;}
+
+/*外部装载三个label和MoreButton的view*/
+.labelOuterContentView {height: 57px; margin-top: -61px;position: absolute;right: 30px;left: 89px;}
+/*内部装载三个label的view*/
+.labelInnerContentView {padding-top: 30px; width: 201px; height: 27px; margin: 0 auto}
+/*cell中title、版本号的Label*/
+.cellTitleLabel {padding-left: 0px; overflow: hidden; width: 201px; height: 21px; padding-top: 35px; font-size: 16px; font-family:AxelBold; color:#333333; margin-top: -62px}
+/*cell中发布号、介绍的Label*/
+.cellVersionLabel {padding-left: 0px; overflow: hidden; width: 201px; height: 21px; padding-top: 0px; font-size: 16px; font-family:AxelBold; color:#333333; margin-top: -17px}
+/*标记时间的label*/
+.cellDateLabel {padding-left: 0px; overflow: hidden; width: 165px; height: 21px; font-size: 16px; margin-top: -17px; color: #3668ff}
+/*MoreButtonButton*/
+.moreButton {width: 65px; height: 24px; margin-top: -37px; position: absolute; right: 40px;}
+.moreButton a {width: 65px; height: 24px; padding-top: 16px; padding-left: 10px; padding-right: 10px}
+
+/*自适应高度的div*/
+.dymain {
+    margin:auto;
+    background-color:#f3f3f3;
+}
+.dymain table {
+    margin-left : 0;
+}
+/*ChangeLog*/
+.changeLogTitle {position: absolute; left: 10px; font-family: AxelBold; color: #333333; font-size: 16px}
+.changeLogDetail {position: absolute; left: 15px; right: 15px; font-family: AxelBold; color: #444444; font-size: 16px;}
+
+/*installButton*/
+.installButton {position: relative;bottom: 0px; width: 100px; height: 44px; margin: 0 auto; padding-bottom: 10px}
+.installButton a {width: 100px; height: 44px;}
+
+.errorLabel {padding-top: 88px;font-size:16px; font-family:AxelRegular; color:#fff;}
+.downloadLabel {/*position: absolute; right: 10px; */font-size:14px; font-family:AxelRegular; color:#eee;}
+.contractMeLabel {/*position: absolute; right: 10px; */font-size:14px; font-family:AxelRegular; color:#eee;}
