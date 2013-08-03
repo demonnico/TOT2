@@ -2,7 +2,7 @@
 body
 {
 	background:#283b4c;
-	background-image:url(../Images/Background.png);
+	background-image:url(./Background.png);
 	background-repeat:repeat;
 	margin:0;
 	padding:0;
@@ -16,7 +16,7 @@ body
 	body
 	{
 		background:#283b4c;
-		background-image:url(../Images/Background@2x.png);
+		background-image:url(./Background@2x.png);
 		background-repeat:repeat;
 		margin:0;
 		padding:0;
@@ -36,7 +36,7 @@ a:visited{text-decoration:none}
 a:hover {text-decoration:none}
 
 /*顶部NavigationBar布局*/
-.navigationBar {height:44px; background-image:url(../Images/HeaderTitle.png);  margin:0 auto;}
+.navigationBar {height:44px; background-image:url(./HeaderTitle.png);  margin:0 auto;}
 /*顶部Title*/
 .headerTitle {padding-top: 11px;font-size:16px;margin: 0 auto; overflow: hidden; width: 196px; font-family:AxelRegular; color:#252525; text-shadow: 0px 1px 0px #fff;}
 
