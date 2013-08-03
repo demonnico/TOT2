@@ -14,7 +14,7 @@ class DownloadController < ApplicationController
     if !app_version
       send_data(nil, :filename=>'icon.png', :type=>'image/png', :disposition => "inline")
     else
-      icon_path = app_version.icon_path || app_version.itunes_artwork_path
+      icon_path = app_version.thumb_path
       data=File.new(icon_path, "rb").read
       send_data(data, :filename=>'icon.png', :type=>'image/png', :disposition => "inline")  
     end

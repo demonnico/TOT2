@@ -23,6 +23,10 @@ class AppVersion < ActiveRecord::Base
     return version + '(' + short_version + ')' + ' #' + beta_version.to_s
   end
 
+  def thumb_path # return icon_path || itunes_artwork_path
+    return icon_path || itunes_artwork_path
+  end
+
   def delete_files
     bundle_id = app.bundle_id
     FileSystemHelper.rm_file(ipa_path)
