@@ -3,27 +3,33 @@
 
 <%= form_for :app_version, url: '/admin/upload', :html => { :multipart => true } do |f| %>
 
-	<%# Change log text area %>
-	<p>
-		<%= f.label :change_log %><br>
-		<%= f.text_area :change_log, :rows => 10, :size => "24x6" %>
-	</p>
+  <table class="table table-bordered table-striped">
+    <tbody>
 
-	<%# ipa upload %>
-	<p>
-		<%= f.label "Select ipa file to upload" %>
-		<%= file_field_tag 'ipa' %>
-	</p>
+  <%# Change log text area %>
+  <tr>
+    <th>Change Log</th>
+    <td><%= f.text_area :change_log, :rows => 10, :size => "24x6" %></td>
+  </tr>
 
-	<br />
-	<%#  dSYM upload %>
-	<p>
-		<%= f.label "Select zipped dSYM file to upload" %>
-		<%= file_field_tag 'dsym' %>
-	</p>
+  <%# Upload ipa %>
+  <tr>
+    <th>Upload ipa</th>
+    <td><%= file_field_tag 'ipa' %></td>
+  </tr>
 
-	<%# Submit button %>
-	<p>
-		<%= f.submit "Upload ipa" %>
-	</p>
+  <%# Upload dSYM %>
+  <tr>
+    <th>Upload dSYM zip file</th>
+    <td><%= file_field_tag 'dsym' %></td>
+  </tr>
+
+    </tbody>
+  </table>
+
+  <%# Submit button %>
+  <p>
+    <%= f.submit "Upload!" %>
+  </p>
+
 <% end %>
