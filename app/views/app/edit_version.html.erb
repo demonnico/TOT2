@@ -16,14 +16,18 @@
     <tr>
       <th>Icon</th>
       <td>
-        <div class="col-lg-3">
-          <a href="" class="thumbnail">
-            <%= image_tag root_url + 'download/icon/' + @app_version.id.to_s %>
-          </a>
-        </div>
+        <% if @app_version.thumb_path %>
+          <div class="col-lg-3">
+            <a href="" class="thumbnail">
+              <%= image_tag root_url + 'download/icon/' + @app_version.id.to_s %>
+            </a>
+          </div>
+        <% else %>
+          This app doesn't contain an icon.
+        <% end %>
       </td>
     </tr>
-
+    
     <%# beta version %>
     <tr>
       <th>Version</th>
