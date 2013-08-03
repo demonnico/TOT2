@@ -1,8 +1,10 @@
 TOT2::Application.routes.draw do
   devise_for :users
 
+  # distribution apps
+  root :to => 'app#applist'
+
   # download
-  root :to => 'download#index'
   get "download/index"
   match 'download/icon/:version_id', :to => 'download#downimage'
   match 'download/ipa/:version_id', :to => 'download#downipa'
