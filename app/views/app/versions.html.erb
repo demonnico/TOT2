@@ -35,7 +35,7 @@
 					</td>
 					<td>
 						<%= link_to 'ipa', '/download/ipa/' + version.id.to_s %>
-						<% if version.dsym_path %>
+						<% if (can? :manage, App) && version.dsym_path %>
 						| <%= link_to 'dSYM', '/download/dsym/' + version.id.to_s %>
 						<% end %>
 					</td>
