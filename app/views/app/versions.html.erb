@@ -1,4 +1,4 @@
-<h3>Versions of <%= @app.bundle_id %></h3>
+<h3><%= link_to 'Apps', '/admin/apps' %> > <%= @app.bundle_id %></h3>
 
 <% if @versions.count == 0 %>
 	<h4>No version available.</h4>

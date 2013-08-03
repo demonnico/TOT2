@@ -1,4 +1,8 @@
-<h3>Version of <%= @app_version.app_name + ' ' + @app_version.version_string %></h3>
+<h3>
+  <%= link_to 'Apps', '/admin/apps' %> >
+  <%= link_to @app_version.app.bundle_id, '/admin/apps/' + @app_version.app.id.to_s + '/versions' %> >
+  <%= @app_version.app_name + ' ' + @app_version.version_string %>
+</h3>
 
 <table class="table table-bordered table-striped">
   <tbody>
