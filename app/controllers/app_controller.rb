@@ -4,5 +4,7 @@ class AppController < ApplicationController
 
   def applist
     @applist = App.all
+    @back_uri = nil
+    @navigation_title = 'Install Apps'
   end
 end
