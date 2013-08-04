@@ -17,3 +17,5 @@
 .DS_Store
 .sass-cache/
 /public/uploads/*
+
+lib/myplugin/pngdefry/pngdefry
