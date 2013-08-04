@@ -1,1 +1,26 @@
-<%= @applist %>
+<% if @applist.empty? %>
+<% elsif %>
+<% @applist.each do |app| %>
+	<% last_app_version = app.app_versions.last %>
+	<% if last_app_version %>
+		<div class="cell" onclick="openPage('ipadetail.php')">
+			<div class="iconContainer">
+	            <%= image_tag root_url + 'download/icon/' + last_app_version.id.to_s, :class => 'iconImage' %>
+				<img class="iconRoundedRectImage" src="assets/RoundedRectAngel.png">
+			</div>
+
+			<div class="labelOuterContentView">
+				<div class="labelInnerContentView">
+					<p class="cellTitleLabel">
+						<%= last_app_version.app_name + ' ' + last_app_version.version + ' (' + last_app_version.short_version + ')' %>
+					</p>
+					<p class="cellVersionLabel">#<%= app.last_version.to_s %></p>
+					<p class="cellDateLabel"><%= last_app_version.release_date.strftime("%d %b,%y - %H:%M") %></p>
+				</div>
+			</div>
+
+			<img class="detailButton" src="assets/DetailButton.png">
+		</div>
+	<% end %>
+<% end %>
+<% end %>
