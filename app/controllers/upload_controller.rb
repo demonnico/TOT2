@@ -2,6 +2,7 @@ class UploadController < ApplicationController
 
 	require 'file_system_helper'
 	require 'binary_plist_helper'
+	require 'pngdefry_helper'
 
 	layout '_navigation'
 	before_filter :authorize, :only => [:upload]
@@ -92,6 +93,10 @@ class UploadController < ApplicationController
 
 				# unzip icons
 				FileSystemHelper.zip_file_to_destination(temp_file_path_for_ipa, unzip_hash)
+
+				# pngdefry icons
+				PngdefryHelper.defry_png(icon_temp_path.to_s)
+				PngdefryHelper.defry_png(icon2x_temp_path.to_s)
 
 				# version, short version, bundle id, display_name, change log
 				version_string = BinaryPlistHelper.get_version_string(parsed_hash) # version string
