@@ -10,6 +10,7 @@ Use [cancan](https://github.com/ryanb/cancan) 1.6.10
 Use [rubyzip](https://github.com/rubyzip/rubyzip) 0.9.9  
 Use [CFPropertyList](https://github.com/ckruse/CFPropertyList) 2.2.0  
 Use [bootstrap](http://getbootstrap.com/)  
+Use [pngdefry](http://www.jongware.com/pngdefry.html)  
 Use sqlite 3  
 
 #How to use
