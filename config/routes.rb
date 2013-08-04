@@ -3,6 +3,7 @@ TOT2::Application.routes.draw do
 
   # distribution apps
   root :to => 'app#applist'
+  match 'versiondetail/:version_id', :to => 'app#version_detail'
 
   # download
   get "download/index"
