@@ -3,7 +3,7 @@
 <% @applist.each do |app| %>
 	<% last_app_version = app.app_versions.last %>
 	<% if last_app_version %>
-		<div class="cell" onclick="openPage('ipadetail.php')">
+		<div class="cell" onclick="openPage('versiondetail/')">
 			<div class="iconContainer">
 	            <%= image_tag root_url + 'download/icon/' + last_app_version.id.to_s, :class => 'iconImage' %>
 				<img class="iconRoundedRectImage" src="assets/RoundedRectAngel.png">
@@ -21,6 +21,12 @@
 
 			<img class="detailButton" src="assets/DetailButton.png">
 		</div>
+
+		<% if app.app_versions.count > 1 %>
+			<div class="moreButton" onclick="openPage('moveversion/')">
+				<img width="65px;" height="24px;" src="assets/MoreButton.png">
+			</div>
+		<% end %>
 	<% end %>
 <% end %>
 <% end %>
