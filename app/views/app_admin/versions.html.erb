@@ -34,9 +34,9 @@
 						<%= display_change_log %>
 					</td>
 					<td>
-						<%= link_to 'ipa', '/download/ipa/' + version.id.to_s %>
+						<%= link_to 'ipa', root_url + version.ipa_download_url %>
 						<% if (can? :manage, App) && version.dsym_path %>
-						| <%= link_to 'dSYM', '/download/dsym/' + version.id.to_s %>
+						| <%= link_to 'dSYM', root_url + version.dsym_download_url %>
 						<% end %>
 					</td>
 					<% if (can? :manage, App) %>
