@@ -1,5 +1,7 @@
 class AppController < ApplicationController
 
+  require 'manifest_helper'
+
   layout '_distribution'
 
   def applist
@@ -48,7 +50,8 @@ class AppController < ApplicationController
     end
     app_version = AppVersion.find_by_id(version_id)
     if app_version
-      send_data(app_version)
+      manifest_data = ManifestHelper.gen_manifest(app_version)
+      send_data(manifest_data, :filename=>'manifest.plist')
     end
   end
 end

@@ -41,7 +41,7 @@
     </div>
 
     <div class="installButton" style="margin-top:7px;">
-      <a href="itms-services://?action=download-manifest&url=http://localhost/tot/getmanifest.php?com.netease.cloudmusic@1"><img width="100px;" height="44px;" src="<%= assets_path %>/InstallButton.png"></a>
+      <a href="itms-services://?action=download-manifest&url=<%= root_url %>getmanifest/<%= @app_version.id.to_s %>"><img width="100px;" height="44px;" src="<%= assets_path %>/InstallButton.png"></a>
     </div>
     <div style="height:7px; background:#f3f3f3;"></div></div>
 <% end %>
