@@ -50,15 +50,29 @@ $ ./tot
 
 Open [http://your-ip-or-host-of-rails-server:3000/admin](http://your-ip-or-host-of-rails-server:3000/admin)  
 Login use default admin account with email: ***tot@tot.com***, password: ***totadmin***.  
+
+![Login](https://raw.github.com/OpenFibers/TOT2/master/ScreenShots/1.login.png)
+
 Click '**Upload**' in the top of the admin page.  
-Upload ipa and dSYM files.
+Upload ipa and dSYM files.  
+
+![Upload](https://raw.github.com/OpenFibers/TOT2/master/ScreenShots/2.upload.png)
 
 ***We strongly suggest that register a new user and award permissions to users, instead of manage apps use default admin account.***  
+
+Then you can see your uploaded apps in '***Apps***' tab.
+
+![Manage App](https://raw.github.com/OpenFibers/TOT2/master/ScreenShots/3.manageapp.png)
 
 ####5.Download apps in iOS devices
 
 Open [http://your-ip-or-host-of-rails-server:3000](http://your-ip-or-host-of-rails-server:3000) on iOS devices.  
-Download apps.
+Download apps.  
+
+![Download List](https://raw.github.com/OpenFibers/TOT2/master/ScreenShots/4.downloadlist.png)
+
+![Download](https://raw.github.com/OpenFibers/TOT2/master/ScreenShots/5.download.png)
+
 
 ####6.Reset admin account if forgot
 
