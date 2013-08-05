@@ -40,4 +40,14 @@ class AppVersion < ActiveRecord::Base
     app.destroy if app.app_versions.count == 0
   end
 
+  def ipa_download_url
+    url = 'download/ipa/' + id.to_s
+    return url
+  end
+
+  def dsym_download_url
+    url = 'download/dsym/' + id.to_s
+    return url
+  end
+
 end
