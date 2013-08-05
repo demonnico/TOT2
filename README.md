@@ -73,3 +73,15 @@ $ rake db:seed
 ```
 
 Then you can login the TOT2 admin page, [http://your-ip-or-host-of-rails-server:3000/admin] with email: ***tot@tot.com***, password: ***totadmin***.
+
+#Other choice
+
+Web Service:  
+1.[Test Flight](http://testflightapp.com)  
+2.[diawi](http://www.diawi.com)  
+3.[AppSendr](http://www.appsendr.com)  
+4.[HockeyApp](http://www.hockeyapp.net)  
+  
+Open Sourced project:  
+1.[HockeyKit](https://github.com/TheRealKerni/HockeyKit) : Open sourced PHP5 project.  
+2.[BetaBuilder for iOS](http://www.hanchorllc.com/betabuilder-for-ios/) : Open sourced native MAC app. It should be used with a static web server.  
