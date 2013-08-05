@@ -23,5 +23,23 @@ class AppController < ApplicationController
   end
 
   def more_version
+    app_id = params[:app_id]
+    @back_uri = params[:back_uri] || '/'
+    if app_id == nil
+      redirect_to '/'
+    end
+
+    @app = App.find_by_id(app_id)
+    if !@app
+      @navigation_title = 'App Not Found'
+    else
+      @versions = @app.app_versions.reverse
+      if @versions.empty?
+        @navigation_title = 'No Version Found'
+      else
+        @navigation_title = @app.bundle_id    
+      end
+      
+    end
   end
 end
