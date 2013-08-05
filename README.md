@@ -93,6 +93,9 @@ $ ./tot reset db
 ```
 Database will be reseted after restart, including apps and users data.
 
+#How to migrate TOT2 server
+Just copy the entire TOT2 folder to another server.
+
 #Other choice
 
 Web Service:  
