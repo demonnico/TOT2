@@ -1,0 +1,27 @@
+<% assets_path = root_url + 'assets' %>
+
+<% if @versions.empty? %>
+  <h1 class="errorLabel">No version found about this app.</h1>
+  <div style="height:44px;"></div>
+<% elsif %>
+  <% @versions.each do |version| %>
+    <div class="cell" onclick="openPage('<%= root_url %>versiondetail/<%= version.id.to_s %>?back_uri=/moreversion/<%= @app.id.to_s %>')">
+      <div class="iconContainer">
+        <%= image_tag root_url + 'download/icon/' + version.id.to_s, :class => 'iconImage' %>
+        <img class="iconRoundedRectImage" src="<%= assets_path %>/RoundedRectAngel.png">
+      </div>
+
+      <div class="labelOuterContentView">
+        <div class="labelInnerContentView">
+          <p class="cellTitleLabel">
+            <%= version.app_name + ' ' + version.version + ' (' + version.short_version + ')' %>
+          </p>
+          <p class="cellVersionLabel">#<%= version.beta_version.to_s %></p>
+          <p class="cellDateLabel"><%= version.release_date.strftime("%d %b,%y - %H:%M") %></p>
+        </div>
+      </div>
+
+      <img class="detailButton" src="<%= assets_path %>/DetailButton.png">
+    </div>
+  <% end %>
+<% end %>
