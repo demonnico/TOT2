@@ -10,4 +10,7 @@ class AppController < ApplicationController
 
   def version_detail
   end
+
+  def more_version
+  end
 end
