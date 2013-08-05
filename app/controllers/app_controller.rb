@@ -2,7 +2,8 @@ class AppController < ApplicationController
 
   require 'manifest_helper'
 
-  layout '_distribution'
+  layout :resolve_layout
+  before_filter :check_user_agent, :only => [:applist, :version_detail, :more_version]
 
   def applist
     @applist = App.all
@@ -53,6 +54,27 @@ class AppController < ApplicationController
       host_url = url_for(request.scheme + "://" + request.host_with_port + '/')
       manifest_data = ManifestHelper.gen_manifest(host_url, app_version)
       send_data(manifest_data, :filename=>'manifest.plist')
+    end
+  end
+
+  private
+  def from_iphone?
+    iphone_text_location = request.user_agent =~ /iPhone|iPad/
+    return iphone_text_location != nil
+  end
+
+  def check_user_agent
+    if !from_iphone?
+      render 'pc'
+    end
+  end
+
+  def resolve_layout
+    case from_iphone?
+    when true
+      "_distribution"
+    else
+      "_empty"
     end
   end
 end
