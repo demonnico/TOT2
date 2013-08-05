@@ -53,14 +53,14 @@ Login use default admin account with email: ***tot@tot.com***, password: ***tota
 
 ![Login](https://raw.github.com/OpenFibers/TOT2/master/ScreenShots/1.login.png)
 
-Click '**Upload**' in the top of the admin page.  
+Click 'Upload' in the top of the admin page.  
 Upload ipa and dSYM files.  
 
 ![Upload](https://raw.github.com/OpenFibers/TOT2/master/ScreenShots/2.upload.png)
 
 ***We strongly suggest that register a new user and award permissions to users, instead of manage apps use default admin account.***  
 
-Then you can see your uploaded apps in '***Apps***' tab.
+Then you can see your uploaded apps in 'Apps' tab.
 
 ![Manage App](https://raw.github.com/OpenFibers/TOT2/master/ScreenShots/3.manageapp.png)
 
