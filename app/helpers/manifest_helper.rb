@@ -1,6 +1,11 @@
 module ManifestHelper
   class << self 
-    def gen_manifest(app_version)
+    def gen_manifest(host_url, app_version)
+      ipa_download_link = host_url + app_version.ipa_download_url
+      bundle_id = app_version.app.bundle_id
+      version_string = app_version.version + ' (' + app_version.short_version + ')'
+      app_name = app_version.app_name
+
       text = ''
       text += '<?xml version="1.0" encoding="UTF-8"?>'
       text += '<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">'
@@ -15,19 +20,19 @@ module ManifestHelper
       text += '            <key>kind</key>'
       text += '            <string>software-package</string>'
       text += '            <key>url</key>'
-      text += '            <string>http://localhost/tot/Documents/com.netease.cloudmusic/1/BetaTest.ipa</string>'
+      text += '            <string>' + ipa_download_link + '</string>' # download link
       text += '          </dict>'
       text += '        </array>'
       text += '        <key>metadata</key>'
       text += '        <dict>'
       text += '          <key>bundle-identifier</key>'
-      text += '          <string>com.netease.cloudmusic</string>'
+      text += '          <string>' + bundle_id + '</string>' # bundle id
       text += '          <key>bundle-version</key>'
-      text += '          <string>1.4.0 (1.4.0)</string>'
+      text += '          <string>' + version_string + '</string>'# version
       text += '          <key>kind</key>'
       text += '          <string>software</string>'
       text += '          <key>title</key>'
-      text += '          <string>网易云音乐</string>'
+      text += '          <string>' + app_name + '</string>' # app name
       text += '        </dict>'
       text += '      </dict>'
       text += '    </array>'

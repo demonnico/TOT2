@@ -50,7 +50,8 @@ class AppController < ApplicationController
     end
     app_version = AppVersion.find_by_id(version_id)
     if app_version
-      manifest_data = ManifestHelper.gen_manifest(app_version)
+      host_url = url_for("http://" + request.host + ':' + request.port.to_s + '/')
+      manifest_data = ManifestHelper.gen_manifest(host_url, app_version)
       send_data(manifest_data, :filename=>'manifest.plist')
     end
   end
