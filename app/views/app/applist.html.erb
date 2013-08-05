@@ -18,7 +18,7 @@
             <p class="cellTitleLabel">
               <%= last_app_version.app_name + ' ' + last_app_version.version + ' (' + last_app_version.short_version + ')' %>
             </p>
-            <p class="cellVersionLabel">#<%= app.last_version.to_s %></p>
+            <p class="cellVersionLabel">#<%= last_app_version.beta_version.to_s %></p>
             <p class="cellDateLabel"><%= last_app_version.release_date.strftime("%d %b,%y - %H:%M") %></p>
           </div>
         </div>

@@ -1,0 +1,47 @@
+<% assets_path = root_url + 'assets' %>
+
+<% if !@app_version %>
+  <h1 class="errorLabel">This app version was not found.</h1>
+  <div style="height:44px;"></div>
+<% else %>
+  <div class="detailCell">
+    <div class="iconContainer">
+      <%= image_tag root_url + 'download/icon/' + @app_version.id.to_s, :class => 'iconImage' %>
+      <img class="iconRoundedRectImage" src="<%= assets_path %>/RoundedRectAngel.png">
+    </div>
+
+    <div class="labelOuterContentView">
+      <div class="labelInnerContentView">
+          <p class="cellTitleLabel">
+            <%= @app_version.app_name + ' ' + @app_version.version + ' (' + @app_version.short_version + ')' %>
+          </p>
+          <p class="cellVersionLabel">#<%= @app_version.beta_version.to_s %></p>
+          <p class="cellDateLabel"><%= @app_version.release_date.strftime("%d %b,%y - %H:%M") %></p>
+      </div>
+    </div>
+
+    <img class="horizontalDetailButton" src="<%= assets_path %>/DetailButtonHorizontal.png">
+
+    <div style="height:21px;">
+      <p class="changeLogTitle">Change Log:</p>
+    </div>
+
+    <div style="word-break: break-all; word-wrap:break-word;">
+      <div class="dymain">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <p style="white-space:pre-wrap; font-family: AxelBold; color: #333333; font-size: 16px; padding-left:12px; padding-right:12px; padding-top:3px;"><%= @app_version.change_log %></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="installButton" style="margin-top:7px;">
+      <a href="itms-services://?action=download-manifest&url=http://localhost/tot/getmanifest.php?com.netease.cloudmusic@1"><img width="100px;" height="44px;" src="<%= assets_path %>/InstallButton.png"></a>
+    </div>
+    <div style="height:7px; background:#f3f3f3;"></div></div>
+<% end %>
