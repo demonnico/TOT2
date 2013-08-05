@@ -1,3 +1,4 @@
+<% assets_path = root_url + 'assets' %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -7,20 +8,20 @@
 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 
-<link rel="stylesheet" type="text/css" href="assets/axelfamilyfont.css"/>
-<link rel="stylesheet" type="text/css" href="assets/generalstyle.css"/>
+<link rel="stylesheet" type="text/css" href="<%= assets_path %>/axelfamilyfont.css"/>
+<link rel="stylesheet" type="text/css" href="<%= assets_path %>/generalstyle.css"/>
 
-<link rel="apple-touch-icon-precomposed" href="assets/Icon.png"/>
-<link rel="shortcut icon" href="assets/Icon.png"/>
+<link rel="apple-touch-icon-precomposed" href="<%= assets_path %>/Icon.png"/>
+<link rel="shortcut icon" href="<%= assets_path %>/Icon.png"/>
 
-<link rel="apple-touch-startup-image" href="assets/Default.png" media="(device-width: 320px)" sizes="320x460"/>
-<link rel="apple-touch-startup-image" href="assets/Default@2x.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" sizes="640x920"/>
-<link rel="apple-touch-startup-image" href="assets/Default-568h@2x.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" sizes="640x1096"/>
+<link rel="apple-touch-startup-image" href="<%= assets_path %>/Default.png" media="(device-width: 320px)" sizes="320x460"/>
+<link rel="apple-touch-startup-image" href="<%= assets_path %>/Default@2x.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" sizes="640x920"/>
+<link rel="apple-touch-startup-image" href="<%= assets_path %>/Default-568h@2x.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" sizes="640x1096"/>
 
-<link href="assets/DefaultIpadPortrait.png" media="(device-width: 768px) and (orientation: portrait)" rel="apple-touch-startup-image"/>
-<link href="assets/DefaultIpadPortrait@2x.png" media="(device-width: 768px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
-<link href="assets/DefaultIpadLandscape.png" media="(device-width: 768px) and (orientation: landscape)" rel="apple-touch-startup-image"/>
-<link href="assets/DefaultIpadLandscape@2x.png" media="(device-width: 768px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
+<link href="<%= assets_path %>/DefaultIpadPortrait.png" media="(device-width: 768px) and (orientation: portrait)" rel="apple-touch-startup-image"/>
+<link href="<%= assets_path %>/DefaultIpadPortrait@2x.png" media="(device-width: 768px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
+<link href="<%= assets_path %>/DefaultIpadLandscape.png" media="(device-width: 768px) and (orientation: landscape)" rel="apple-touch-startup-image"/>
+<link href="<%= assets_path %>/DefaultIpadLandscape@2x.png" media="(device-width: 768px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
 
 <title>TOT2</title>
 </head>
@@ -44,7 +45,7 @@ function backToPage(location)
 	<h1 class="headerTitle"><%= title %></h1>
 	<% if @back_uri %>
 		<div style="position:absolute; top:7px; left:4px">
-			<img onclick="backToPage('<%= @back_uri %>')" width="50px;" height="30px;" src="assets/GrayBackButtonHD.png">
+			<img onclick="backToPage('<%= @back_uri %>')" width="50px;" height="30px;" src="assets_path/GrayBackButtonHD.png">
 		</div>
 	<% end %>
 </div>
