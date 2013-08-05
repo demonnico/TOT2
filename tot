@@ -1,0 +1,68 @@
+#/bin/bash
+
+help()
+{
+	echo 'Use age:'
+	echo 'start [-p] [port]    Start tot with port. Default port is 3000.'
+	echo 'setup                Setup bundle and db of rails.'
+	echo 'reset rootuser       Recreate tot@tot.com and reset its password to totadmin.'
+	echo 'reset db             Remove all apps, all uploaded files, all users and all uploaded files'
+}
+
+setup()
+{
+	path=`dirname $0`
+	cd $path
+	bundle install
+	RAILS_ENV=production rake db:create
+	RAILS_ENV=production rake db:migrate
+	RAILS_ENV=production rake db:seed;
+}
+
+start()
+{
+	path=`dirname $0`
+	cd $path
+	RAILS_ENV=production rails server -p $1;
+}
+
+rootuser()
+{
+	path=`dirname $0`
+	cd $path
+	RAILS_ENV=production rake db:seed;
+}
+
+resetdb()
+{
+	echo 'resetting db'
+	path=`dirname $0`
+	cd $path
+	RAILS_ENV=production rake db:reset;
+	rm -rf ./public/uploads/*
+}
+
+
+if [[ "$1" = "help" ]]; then
+	help
+elif [[ "$1" = "--help" ]]; then
+	help
+elif [[ "$1" = "setup" ]]; then
+	setup
+elif [[ "$1" = "reset" ]] && [[ "$2" = "rootuser" ]]; then
+	rootuser
+elif [[ "$1" = "reset" ]] && [[ "$2" = "db" ]]; then
+	resetdb
+elif [[ "$1" = "start" ]]; then
+	port=3000
+	if [[ "$2" = "-p" ]]; then
+		port=$3
+	fi
+	start $port
+else
+	port=3000
+	if [[ "$1" = "-p" ]]; then
+		port=$2
+	fi
+	start $port
+fi
