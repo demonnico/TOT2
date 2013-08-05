@@ -5,7 +5,7 @@
   <% @applist.each do |app| %>
     <% last_app_version = app.app_versions.last %>
     <% if last_app_version %>
-      <div class="cell" onclick="openPage('versiondetail/<%= last_app_version.beta_version.to_s %>')">
+      <div class="cell" onclick="openPage('versiondetail/<%= last_app_version.id.to_s %>')">
         <div class="iconContainer">
                 <%= image_tag root_url + 'download/icon/' + last_app_version.id.to_s, :class => 'iconImage' %>
           <img class="iconRoundedRectImage" src="assets/RoundedRectAngel.png">
