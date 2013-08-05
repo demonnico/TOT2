@@ -35,10 +35,7 @@ $ git clone https://github.com/OpenFibers/TOT2.git
 
 ```
 $ cd TOT2
-$ bundle install
-$ RAILS_ENV=production rake db:create
-$ RAILS_ENV=production rake db:migrate
-$ RAILS_ENV=production rake db:seed
+$ ./tot.sh setup
 ```
 
 A default admin account with email: ***tot@tot.com***, password: ***totadmin*** will be generated.
@@ -46,7 +43,7 @@ A default admin account with email: ***tot@tot.com***, password: ***totadmin*** 
 ####3.Start the rails server
 
 ```
-$ ./start.sh
+$ ./tot.sh
 ```
 
 ####4.Upload ipa and dSYM files  
@@ -69,10 +66,18 @@ Just run ***rake db:seed*** to reset default account:
 
 ```
 $ cd TOT2
-$ rake db:seed
+$ ./tot.sh reset rootuser
 ```
 
-Then you can login the TOT2 admin page, [http://your-ip-or-host-of-rails-server:3000/admin] with email: ***tot@tot.com***, password: ***totadmin***.
+Restart server, then you can login the TOT2 admin page, [http://your-ip-or-host-of-rails-server:3000/admin] with email: ***tot@tot.com***, password: ***totadmin***.
+
+####7.Reset data base.  
+
+```
+$ cd TOT2
+$ ./tot.sh reset db
+```
+Database will be reseted after restart, including apps and users data.
 
 #Other choice
 
