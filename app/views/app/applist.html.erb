@@ -1,3 +1,5 @@
+<% assets_path = root_url + 'assets' %>
+
 <% if @applist.empty? %>
   <h1 class="errorLabel">No beta test ipa package available.</h1>
   <div style="height:44px;"></div>
@@ -7,8 +9,8 @@
     <% if last_app_version %>
       <div class="cell" onclick="openPage('versiondetail/<%= last_app_version.id.to_s %>')">
         <div class="iconContainer">
-                <%= image_tag root_url + 'download/icon/' + last_app_version.id.to_s, :class => 'iconImage' %>
-          <img class="iconRoundedRectImage" src="assets/RoundedRectAngel.png">
+          <%= image_tag root_url + 'download/icon/' + last_app_version.id.to_s, :class => 'iconImage' %>
+          <img class="iconRoundedRectImage" src="<%= assets_path %>/RoundedRectAngel.png">
         </div>
 
         <div class="labelOuterContentView">
@@ -21,12 +23,12 @@
           </div>
         </div>
 
-        <img class="detailButton" src="assets/DetailButton.png">
+        <img class="detailButton" src="<%= assets_path %>/DetailButton.png">
       </div>
 
       <% if app.app_versions.count > 1 %>
         <div class="moreButton" onclick="openPage('moreversion/<%= app.id %>')">
-          <img width="65px;" height="24px;" src="assets/MoreButton.png">
+          <img width="65px;" height="24px;" src="<%= assets_path %>/MoreButton.png">
         </div>
       <% end %>
     <% end %>
