@@ -28,7 +28,6 @@ class AppController < ApplicationController
     if app_id == nil
       redirect_to '/'
     end
-
     @app = App.find_by_id(app_id)
     if !@app
       @navigation_title = 'App Not Found'
@@ -39,7 +38,17 @@ class AppController < ApplicationController
       else
         @navigation_title = @app.bundle_id    
       end
-      
+    end
+  end
+
+  def get_manifest
+    version_id = params[:version_id]
+    if version_id == nil
+      send_data(nil)
+    end
+    app_version = AppVersion.find_by_id(version_id)
+    if app_version
+      send_data(app_version)
     end
   end
 end

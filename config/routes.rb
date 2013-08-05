@@ -5,6 +5,7 @@ TOT2::Application.routes.draw do
   root :to => 'app#applist'
   match 'versiondetail/:version_id', :to => 'app#version_detail'
   match 'moreversion/:app_id', :to => 'app#more_version'
+  match 'getmanifest/:version_id', :to => 'app#get_manifest'
 
   # download
   get "download/index"
