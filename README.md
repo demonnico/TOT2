@@ -43,8 +43,9 @@ A default admin account with email: ***tot@tot.com***, password: ***totadmin*** 
 ####3.Start the rails server
 
 ```
-$ ./tot
+$ ./tot start
 ```
+Run this script at server start time to make the TOT2 server keep alive.
 
 ####4.Upload ipa and dSYM files  
 
@@ -73,8 +74,13 @@ Download apps.
 
 ![Download](https://raw.github.com/OpenFibers/TOT2/master/ScreenShots/5.download.png)
 
+####6.Stop TOT2 server
 
-####6.Reset admin account if forgot
+```
+$ ./tot stop
+```
+
+####7.Reset admin account if forgot
 
 Just run ***rake db:seed*** to reset default account:
 
@@ -85,7 +91,7 @@ $ ./tot reset rootuser
 
 Restart server, then you can login the TOT2 admin page, [http://your-ip-or-host-of-rails-server:3000/admin] with email: ***tot@tot.com***, password: ***totadmin***.
 
-####7.Reset data base.  
+####8.Reset data base.  
 
 ```
 $ cd TOT2
