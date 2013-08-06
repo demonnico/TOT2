@@ -10,6 +10,17 @@ help()
 	echo 'reset db                           Remove all apps, all uploaded files, and all users'
 }
 
+starthelp()
+{
+	echo 'Usage: tot start [mongrel, thin, etc] [options]'
+    echo '-p, --port=port                  Runs Rails on the specified port.'
+    echo '                                 Default: 3000'
+    echo '-b, --binding=ip                 Binds Rails to the specified ip.'
+    echo '                                 Default: 0.0.0.0'
+    echo '-P, --pid=pid                    Specifies the PID file.'
+    echo '                                 Default: tmp/pids/server.pid'
+}
+
 setup()
 {
 	path=`dirname $0`
@@ -70,7 +81,13 @@ elif [[ "$1" = "reset" ]] && [[ "$2" = "db" ]]; then
 elif [[ "$1" = "stop" ]]; then
 	stop
 elif [[ "$1" = "start" ]]; then
-	start $@
+	if [[ "$2" = "help" ]]; then
+		starthelp
+	elif [[ "$2" = "--help" ]]; then
+		starthelp
+	else
+		start $@
+	fi
 else
 	help
 fi
