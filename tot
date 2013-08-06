@@ -5,6 +5,7 @@ help()
 	echo 'Usage: tot [options]'
 	echo 'start [-p port] [-b binding=ip]    Start TOT2 with port. Default port is 3000.'
 	echo 'stop                               Stop TOT2.'
+	echo 'pid                                Check the process pid of TOT2.'
 	echo 'setup                              Setup bundle and db of rails.'
 	echo 'reset rootuser                     Recreate tot@tot.com and reset its password to totadmin.'
 	echo 'reset db                           Remove all apps, all uploaded files, and all users'
@@ -12,13 +13,61 @@ help()
 
 starthelp()
 {
-	echo 'Usage: tot start [mongrel, thin, etc] [options]'
-    echo '-p, --port=port                  Runs Rails on the specified port.'
-    echo '                                 Default: 3000'
-    echo '-b, --binding=ip                 Binds Rails to the specified ip.'
-    echo '                                 Default: 0.0.0.0'
-    echo '-P, --pid=pid                    Specifies the PID file.'
-    echo '                                 Default: tmp/pids/server.pid'
+	echo 'Usage: tot start [options]'
+	echo ''
+	echo 'Server options:'
+	echo '    -a, --address HOST               bind to HOST address (default: 0.0.0.0)'
+	echo '    -p, --port PORT                  use PORT (default: 3000)'
+	echo '    -S, --socket FILE                bind to unix domain socket'
+	echo '    -y, --swiftiply [KEY]            Run using swiftiply'
+	echo '    -A, --adapter NAME               Rack adapter to use (default: autodetect)'
+	echo '                                     (rack, rails, ramaze, merb, file)'
+	echo '    -R, --rackup FILE                Load a Rack config file instead of Rack adapter'
+	echo '    -c, --chdir DIR                  Change to dir before starting'
+	echo '        --stats PATH                 Mount the Stats adapter under PATH'
+	echo ''
+	echo 'SSL options:'
+	echo '        --ssl                        Enables SSL'
+	echo '        --ssl-key-file PATH          Path to private key'
+	echo '        --ssl-cert-file PATH         Path to certificate'
+	echo '        --ssl-verify                 Enables SSL certificate verification'
+	echo ''
+	echo 'Adapter options:'
+	echo '    -e, --environment ENV            Framework environment (default: development)'
+	echo '        --prefix PATH                Mount the app under PATH (start with /)'
+	echo ''
+	echo 'Daemon options:'
+	# echo '    -d, --daemonize                  Run daemonized in the background'
+	echo '    -l, --log FILE                   File to redirect output (default: log/thin.log)'
+	# echo '    -P, --pid FILE                   File to store PID (default: tmp/pids/thin.pid)'
+	echo '    -u, --user NAME                  User to run daemon as (use with -g)'
+	echo '    -g, --group NAME                 Group to run daemon as (use with -u)'
+	echo '        --tag NAME                   Additional text to display in process listing'
+	echo ''
+	echo 'Cluster options:'
+	echo '    -s, --servers NUM                Number of servers to start'
+	echo '    -o, --only NUM                   Send command to only one server of the cluster'
+	echo '    -C, --config FILE                Load options from config file'
+	echo '    -O, --onebyone                   Restart the cluster one by one (only works with restart command)'
+	echo '    -w, --wait NUM                   Maximum wait time for server to be started in seconds (use with -O)'
+	echo ''
+	echo 'Tuning options:'
+	echo '    -b, --backend CLASS              Backend to use, full classname'
+	echo '    -t, --timeout SEC                Request or command timeout in sec (default: 30)'
+	echo '    -f, --force                      Force the execution of the command'
+	echo '        --max-conns NUM              Maximum number of open file descriptors (default: 1024)'
+	echo '                                     Might require sudo to set higher than 1024'
+	echo '        --max-persistent-conns NUM   Maximum number of persistent connections'
+	echo '                                     (default: 100)'
+	echo '        --threaded                   Call the Rack application in threads [experimental]'
+	echo ''
+	echo 'Common options:'
+	echo '    -r, --require FILE               require the library'
+	echo '    -q, --quiet                      Silence all logging'
+	echo '    -D, --debug                      Set debugging on'
+	echo '    -V, --trace                      Set tracing on (log raw request/response)'
+	echo '    -h, --help                       Show this message'
+	echo '    -v, --version                    Show version'
 }
 
 setup()
@@ -35,10 +84,9 @@ start()
 {
 	path=`dirname $0`
 	cd $path
-	shift
-	RAILS_ENV=production rails server $@;
-	sleep 1s
-	if [[ -e ./tmp/pids/server.pid ]]; then
+	RAILS_ENV=production thin start -d $@;
+	sleep 5s
+	if [[ -e ./tmp/pids/thin.pid ]]; then
 		echo 'TOT server started'
 	else
 		echo 'TOT server start failed, run rails s -e production for more info'
@@ -49,11 +97,17 @@ stop()
 {
 	path=`dirname $0`
 	cd $path
-	for i in `cat ./tmp/pids/server.pid`
+	thin stop
+	echo 'TOT2 server stopped'
+}
+
+pid()
+{
+	path=`dirname $0`
+	cd $path
+	for i in `cat ./tmp/pids/thin.pid`
 	do
-		kill -9 $i
-		rm ./tmp/pids/server.pid
-		echo 'TOT2 server stopped'
+		echo $i
 	done
 }
 
@@ -86,12 +140,15 @@ elif [[ "$1" = "reset" ]] && [[ "$2" = "db" ]]; then
 	resetdb
 elif [[ "$1" = "stop" ]]; then
 	stop
+elif [[ "$1" = "pid" ]]; then
+	pid
 elif [[ "$1" = "start" ]]; then
 	if [[ "$2" = "help" ]]; then
 		starthelp
 	elif [[ "$2" = "--help" ]]; then
 		starthelp
 	else
+		shift
 		start $@
 	fi
 else
