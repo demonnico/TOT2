@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash --login
 
 help()
 {
@@ -36,7 +36,7 @@ start()
 	path=`dirname $0`
 	cd $path
 	shift
-	RAILS_ENV=production rails server -d $@;
+	RAILS_ENV=production rails server $@;
 	sleep 1s
 	if [[ -e ./tmp/pids/server.pid ]]; then
 		echo 'TOT server started'
