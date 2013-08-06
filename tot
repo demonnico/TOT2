@@ -3,11 +3,11 @@
 help()
 {
 	echo 'Usage: tot [options]'
-	echo 'start [-p] [port]    Start TOT2 with port. Default port is 3000.'
-	echo 'stop                 Stop TOT2.'
-	echo 'setup                Setup bundle and db of rails.'
-	echo 'reset rootuser       Recreate tot@tot.com and reset its password to totadmin.'
-	echo 'reset db             Remove all apps, all uploaded files, and all users'
+	echo 'start [-p port] [-b binding=ip]    Start TOT2 with port. Default port is 3000.'
+	echo 'stop                               Stop TOT2.'
+	echo 'setup                              Setup bundle and db of rails.'
+	echo 'reset rootuser                     Recreate tot@tot.com and reset its password to totadmin.'
+	echo 'reset db                           Remove all apps, all uploaded files, and all users'
 }
 
 setup()
@@ -24,7 +24,8 @@ start()
 {
 	path=`dirname $0`
 	cd $path
-	RAILS_ENV=production rails server -d -p $1;
+	shift
+	RAILS_ENV=production rails server -d $@;
 	echo 'TOT server started'
 }
 
@@ -69,11 +70,7 @@ elif [[ "$1" = "reset" ]] && [[ "$2" = "db" ]]; then
 elif [[ "$1" = "stop" ]]; then
 	stop
 elif [[ "$1" = "start" ]]; then
-	port=3000
-	if [[ "$2" = "-p" ]]; then
-		port=$3
-	fi
-	start $port
+	start $@
 else
 	help
 fi
