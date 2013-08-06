@@ -37,7 +37,12 @@ start()
 	cd $path
 	shift
 	RAILS_ENV=production rails server -d $@;
-	echo 'TOT server started'
+	sleep 1s
+	if [[ -e ./tmp/pids/server.pid ]]; then
+		echo 'TOT server started'
+	else
+		echo 'TOT server start failed, run rails s -e production for more info'
+	fi
 }
 
 stop()
@@ -47,6 +52,7 @@ stop()
 	for i in `cat ./tmp/pids/server.pid`
 	do
 		kill -9 $i
+		rm ./tmp/pids/server.pid
 		echo 'TOT2 server stopped'
 	done
 }
