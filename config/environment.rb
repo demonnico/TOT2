@@ -1,6 +1,6 @@
 # Load the rails application
 require File.expand_path('../application', __FILE__)
-
+require "smtp_tls"
 
 # User Role
 USER_ROLE_SYSTEM_ADMIN = 0
@@ -15,3 +15,12 @@ end
 
 # Initialize the rails application
 TOT2::Application.initialize!
+
+
+ActionMailer::Base.smtp_settings = {
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :authentication => :plain,
+    :user_name => "please-change-me-at-config-initializers-devise-and-config-environment@gmail.com",
+    :password => 'yourpassword'
+}
