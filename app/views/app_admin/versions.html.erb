@@ -39,16 +39,17 @@
 						| <%= link_to 'dSYM', root_url + version.dsym_download_url %>
 						<% end %>
 					</td>
-					<% if (can? :manage, App) %>
-						<td><%= link_to 'Edit', '/admin/appversion/' + version.id.to_s %> |
+					<td style="min-width:80px">
+						<% if (can? :manage, App) %>
+							<%= link_to 'Edit', '/admin/appversion/' + version.id.to_s %> |
 							<%= link_to 'Delete', '/admin/appversion/' + version.id.to_s, 
 								:method => :delete,
 								:confirm => 'Are you sure to delete ' + version.app_name + '#' + version.beta_version.to_s + '?'
 							%>
-						</td>
-					<% elsif (can? :read, App) %>
-						<td><%= link_to 'View', '/admin/appversion/' + version.id.to_s %></td>
-					<% end %>
+						<% elsif (can? :read, App) %>
+							<%= link_to 'View', '/admin/appversion/' + version.id.to_s %>
+						<% end %>
+					</td>
 				</tr>
 			<% end %>
 		</tbody>
