@@ -80,7 +80,35 @@ Download apps.
 $ ./tot stop
 ```
 
-####7.Reset admin account if forgot
+####7.Config mail sender
+
+Open 'config/initializers/devise.rb', change the code below
+
+```
+config.mailer_sender = "please-change-me-at-config-initializers-devise-and-config-environment@gmail.com"
+```
+
+to
+
+```
+config.mailer_sender = "your-email-address@gmail.com"
+```
+
+And open 'config/environment.rb', change the code below
+
+```
+-    :user_name => "please-change-me-at-config-initializers-devise-and-config-environment@gmail.com",
+-    :password => 'yourpassword'
+```
+
+to
+
+```
++    :user_name => "your-email-address@gmail.com",
++    :password => 'yourpassword'
+```
+
+####8.Reset admin account if forgot
 
 Just run ***rake db:seed*** to reset default account:
 
@@ -91,7 +119,7 @@ $ ./tot reset rootuser
 
 Restart server, then you can login the TOT2 admin page, [http://your-ip-or-host-of-rails-server:3000/admin] with email: ***tot@tot.com***, password: ***totadmin***.
 
-####8.Reset data base.  
+####9.Reset data base.  
 
 ```
 $ cd TOT2
