@@ -1,5 +1,8 @@
 <%#Forgot password page %>
 
+<% require 'memory_storage.rb' %>
+<% MemoryStorage.set_host_url(request.host_with_port) %>
+
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">

@@ -97,17 +97,6 @@ config.mailer_sender = "your-email-address@gmail.com"
 Then open 'config/environment.rb', change the code below
 
 ```
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-```
-
-to
-
-```
-  config.action_mailer.default_url_options = { :host => 'your-ip-address-or-host:your-server-port' }
-```
-and change:
-
-```
 -    :user_name => "please-change-me-at-config-initializers-devise-and-config-environment@gmail.com",
 -    :password => 'yourpassword'
 ```
