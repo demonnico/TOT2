@@ -7,8 +7,12 @@
   <% @versions.each do |version| %>
     <div class="cell" onclick="openPage('<%= root_url %>versiondetail/<%= version.id.to_s %>?back_uri=/moreversion/<%= @app.id.to_s %>')">
       <div class="iconContainer">
-        <%= image_tag root_url + 'download/icon/' + version.id.to_s, :class => 'iconImage' %>
-        <img class="iconRoundedRectImage" src="<%= assets_path %>/RoundedRectAngel.png">
+          <% if version.thumb_path %>
+            <%= image_tag root_url + 'download/icon/' + version.id.to_s, :class => 'iconImage' %>
+          <% else %>
+            <%= image_tag assets_path + '/Icon.png', :class => 'iconImage' %>
+          <% end %>
+          <img class="iconRoundedRectImage" src="<%= assets_path %>/RoundedRectAngel.png">
       </div>
 
       <div class="labelOuterContentView">

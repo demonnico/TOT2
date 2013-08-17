@@ -6,7 +6,11 @@
 <% else %>
   <div class="detailCell">
     <div class="iconContainer">
-      <%= image_tag root_url + 'download/icon/' + @app_version.id.to_s, :class => 'iconImage' %>
+      <% if @app_version.thumb_path %>
+        <%= image_tag root_url + 'download/icon/' + @app_version.id.to_s, :class => 'iconImage' %>
+      <% else %>
+        <%= image_tag assets_path + '/Icon.png', :class => 'iconImage' %>
+      <% end %>
       <img class="iconRoundedRectImage" src="<%= assets_path %>/RoundedRectAngel.png">
     </div>
 

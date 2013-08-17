@@ -9,7 +9,11 @@
     <% if last_app_version %>
       <div class="cell" onclick="openPage('versiondetail/<%= last_app_version.id.to_s %>')">
         <div class="iconContainer">
-          <%= image_tag root_url + 'download/icon/' + last_app_version.id.to_s, :class => 'iconImage' %>
+          <% if last_app_version.thumb_path %>
+            <%= image_tag root_url + 'download/icon/' + last_app_version.id.to_s, :class => 'iconImage' %>
+          <% else %>
+            <%= image_tag assets_path + '/Icon.png', :class => 'iconImage' %>
+          <% end %>
           <img class="iconRoundedRectImage" src="<%= assets_path %>/RoundedRectAngel.png">
         </div>
 
