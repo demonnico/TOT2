@@ -102,23 +102,23 @@ class AppAdminController < ApplicationController
 
   # check access permission
   def view_authorize
-    if current_user == nil
-      redirect_to '/users/sign_in'
-    elsif !(can? :read, App)
-      flash[:notice] = "You don't have permission to view apps"
-      redirect_to '/'
-      return
-    end
+    #if current_user == nil
+     # redirect_to '/users/sign_in'
+    #elsif !(can? :read, App)
+    #  flash[:notice] = "You don't have permission to view apps"
+     # redirect_to '/'
+      #return
+    #end
   end
 
   def authorize
-    if current_user == nil
-      redirect_to '/users/sign_in'
-    elsif !(can? :manage, App)
-      flash[:notice] = "You don't have permission to manage apps"
-      redirect_to '/admin'
-      return
-    end 
+      #if current_user == nil
+      #redirect_to '/users/sign_in'
+    #elsif !(can? :manage, App)
+     # flash[:notice] = "You don't have permission to manage apps"
+      #redirect_to '/admin'
+     # return
+    #end
   end
 
   def dSYM_io_type_available?(io)
