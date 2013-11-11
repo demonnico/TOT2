@@ -5,7 +5,7 @@ class UploadController < ApplicationController
 	require 'pngdefry_helper'
 
 	layout '_navigation'
-	before_filter :authorize, :only => [:upload]
+    ##	before_filter :authorize, :only => [:upload]
 
 	#############################################################################
 	# actions
@@ -71,7 +71,7 @@ class UploadController < ApplicationController
 					flash[:alert] = 'Invalide IPA file.'
 					return
 				end
-				
+
 				# unzip icon files
 				unzip_hash = {}
 
@@ -86,7 +86,7 @@ class UploadController < ApplicationController
 					unzip_hash[app_path + "Icon@2x.png"] = icon2x_temp_path
 					unzip_hash[app_path + "Icon.png"] = icon_temp_path
 				end
-
+                
 				# iTunesArtwork file name
 				itunes_artwork_file_name = BinaryPlistHelper.get_itunes_artwork_file_name(parsed_hash)
 				unzip_hash[app_path + itunes_artwork_file_name] = itunes_artwork_temp_path
@@ -108,7 +108,7 @@ class UploadController < ApplicationController
 				post_hash = params["app_version"]
 				change_log = post_hash["change_log"] if post_hash
 				change_log = "This uploader is too lazy to write change log" if (!change_log || change_log.length == 0)
-
+                
 				# query app
 				uploaded_app = App.where(:bundle_id => bundle_id).first
 				beta_version_string = (uploaded_app ? uploaded_app.last_version + 1 : 1).to_s
@@ -123,7 +123,7 @@ class UploadController < ApplicationController
 					icon_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "Icon.png").to_s
 					FileSystemHelper.mv_file(icon_temp_path, icon_relative_storage_path)
 				end
-
+                
 				# store iTunesArtwork
 				itunes_artwork_relative_storage_path = nil
 				itunes_artwork_storage_path = nil
@@ -142,6 +142,7 @@ class UploadController < ApplicationController
 					dsym_relative_storage_path = storage_file_relative_path(bundle_id, beta_version_string, "dSYM.zip")
 					FileSystemHelper.save_io_to_file(uploaded_dSYM_io, dsym_relative_storage_path)
 				end
+                
 
 				if(!uploaded_app) # if bundle id never uploaded, create a new one
 					uploaded_app = App.new(
@@ -150,7 +151,11 @@ class UploadController < ApplicationController
 					)
 					uploaded_app.save
 				end
-
+                
+                user_mail = "huaban@huaban.com"
+                if(current_user)
+                    user_mail = current_user.email;
+                end
 				uploaded_version = AppVersion.new(
 						:beta_version => uploaded_app.last_version + 1,
 						:app_name => display_name,
@@ -162,7 +167,7 @@ class UploadController < ApplicationController
 						:dsym_path => dsym_relative_storage_path,
 						:icon_path => icon_relative_storage_path, 
 						:itunes_artwork_path => itunes_artwork_relative_storage_path,
-						:uploader_email => current_user.email
+						:uploader_email => user_mail
 					)
 				uploaded_app.app_versions << uploaded_version
 				uploaded_app.last_version += 1
@@ -193,11 +198,11 @@ class UploadController < ApplicationController
 
 	# check access permission
 	def authorize
-		if current_user == nil || !(can? :manage, App)
-			flash[:notice] = "You don't have permission to access upload page."
-			redirect_to '/admin'
-			return
-		end 
+		#if current_user == nil || !(can? :manage, App)
+		#	flash[:notice] = "You don't have permission to access upload page."
+		#	redirect_to '/admin'
+		#	return
+		#   end
 	end
 
 	# check file type
@@ -229,9 +234,9 @@ class UploadController < ApplicationController
 	# gen temp file path
 	def temp_file_path_for_file_name(file_name = nil)
 		if !file_name
-			ret_path = Rails.root.join('public', 'uploads', 'temp', session[:session_id])
+			ret_path = Rails.root.join('public', 'uploads', 'temp')
 		else
-			ret_path = Rails.root.join('public', 'uploads', 'temp', session[:session_id], file_name)
+			ret_path = Rails.root.join('public', 'uploads', 'temp', file_name)
 		end
 		return ret_path
 	end
